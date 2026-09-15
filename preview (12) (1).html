@@ -1,0 +1,2561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tinder - Español A1 | ARVA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --purple:#4f46e5;
+  --pink:#ff2d55;
+  --orange:#ff751f;
+  --cream:#feffd2;
+  --white:#ffffff;
+  --black:#171717;
+  --gray:#6b7280;
+  --light:#f7f7fb;
+  --green:#16a34a;
+  --red:#dc2626;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:'Montserrat',sans-serif;
+  background:var(--light);
+  color:var(--black);
+}
+
+button,
+input,
+textarea{
+  font-family:inherit;
+}
+
+.app{
+  min-height:100vh;
+}
+
+.progress-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:7px;
+  background:#e5e7eb;
+  z-index:1000;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--purple),var(--pink),var(--orange));
+  transition:.3s;
+}
+
+.topbar{
+  position:fixed;
+  top:7px;
+  left:0;
+  width:100%;
+  background:white;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #eee;
+  z-index:999;
+}
+
+.brand{
+  font-weight:800;
+  color:var(--orange);
+  letter-spacing:-.5px;
+}
+
+.step-counter{
+  font-size:12px;
+  font-weight:700;
+  color:var(--gray);
+}
+
+.screen{
+  display:none;
+  min-height:100vh;
+  padding:100px 24px 50px;
+  align-items:center;
+  justify-content:center;
+}
+
+.screen.active{
+  display:flex;
+}
+
+.container{
+  width:min(1050px,100%);
+  margin:auto;
+}
+
+.hero{
+  text-align:center;
+  max-width:800px;
+  margin:auto;
+}
+
+.kicker{
+  display:inline-block;
+  background:var(--cream);
+  color:var(--orange);
+  font-size:13px;
+  font-weight:800;
+  padding:8px 14px;
+  border-radius:30px;
+  margin-bottom:18px;
+}
+
+h1{
+  font-size:clamp(38px,6vw,70px);
+  line-height:1;
+  margin:0 0 20px;
+  font-weight:800;
+  letter-spacing:-2px;
+}
+
+h2{
+  font-size:clamp(28px,4vw,46px);
+  line-height:1.05;
+  margin:0 0 25px;
+  font-weight:800;
+}
+
+h3{
+  margin-top:0;
+}
+
+.subtitle{
+  font-size:18px;
+  line-height:1.7;
+  color:#555;
+}
+
+.objective-box{
+  background:white;
+  border-radius:25px;
+  padding:35px;
+  box-shadow:0 12px 40px rgba(0,0,0,.08);
+  max-width:850px;
+  margin:auto;
+}
+
+.objective-box p{
+  font-size:20px;
+  line-height:1.7;
+  margin:0;
+}
+
+.context-card{
+  background:var(--black);
+  color:white;
+  border-radius:30px;
+  padding:45px;
+  max-width:850px;
+  margin:auto;
+  position:relative;
+  overflow:hidden;
+}
+
+.context-card:after{
+  content:'💘';
+  position:absolute;
+  right:-15px;
+  bottom:-35px;
+  font-size:150px;
+  opacity:.1;
+}
+
+.context-card p{
+  font-size:19px;
+  line-height:1.8;
+}
+
+.question-box{
+  background:var(--cream);
+  border-radius:20px;
+  padding:25px;
+  margin-top:25px;
+  font-weight:600;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.section-title p{
+  color:var(--gray);
+}
+
+.vocab-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.vocab-card{
+  background:white;
+  border-radius:20px;
+  padding:22px 15px;
+  min-height:145px;
+  cursor:pointer;
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+  transition:.2s;
+  position:relative;
+  text-align:center;
+}
+
+.vocab-card:hover{
+  transform:translateY(-4px);
+}
+
+.vocab-emoji{
+  font-size:35px;
+  display:block;
+  margin-bottom:10px;
+}
+
+.vocab-word{
+  font-weight:800;
+}
+
+.vocab-translation{
+  display:none;
+  margin-top:10px;
+  color:var(--purple);
+  font-size:13px;
+  font-weight:600;
+}
+
+.vocab-card.revealed .vocab-translation{
+  display:block;
+}
+
+.audio-btn{
+  border:0;
+  background:var(--purple);
+  color:white;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  cursor:pointer;
+  margin-top:12px;
+  font-size:15px;
+}
+
+.quiz-card{
+  background:white;
+  border-radius:28px;
+  padding:35px;
+  max-width:800px;
+  margin:auto;
+  box-shadow:0 12px 40px rgba(0,0,0,.07);
+}
+
+.quiz-number{
+  color:var(--pink);
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.quiz-question{
+  font-size:21px;
+  line-height:1.5;
+  font-weight:700;
+  margin-bottom:25px;
+}
+
+.options{
+  display:grid;
+  gap:12px;
+}
+
+.option{
+  border:2px solid #e5e7eb;
+  background:white;
+  padding:16px;
+  border-radius:15px;
+  cursor:pointer;
+  text-align:left;
+  font-size:15px;
+  transition:.2s;
+}
+
+.option:hover{
+  border-color:var(--purple);
+}
+
+.option.selected{
+  border-color:var(--purple);
+  background:#f1efff;
+}
+
+.feedback{
+  margin-top:20px;
+  padding:15px;
+  border-radius:15px;
+  display:none;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.feedback.correct{
+  display:block;
+  background:#ecfdf3;
+  color:#166534;
+}
+
+.feedback.incorrect{
+  display:block;
+  background:#fef2f2;
+  color:#991b1b;
+}
+
+.nav-buttons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  border:0;
+  padding:14px 24px;
+  border-radius:999px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn-primary{
+  background:var(--purple);
+  color:white;
+}
+
+.btn-pink{
+  background:var(--pink);
+  color:white;
+}
+
+.btn-orange{
+  background:var(--orange);
+  color:white;
+}
+
+.btn-light{
+  background:white;
+  color:var(--black);
+  border:1px solid #ddd;
+}
+
+.profile-wrap{
+  max-width:1050px;
+  margin:auto;
+}
+
+.profile-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.profile-counter{
+  background:white;
+  padding:8px 15px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.profile-card{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:20px;
+}
+
+.profile-text{
+  background:white;
+  border-radius:30px;
+  padding:35px;
+  box-shadow:0 12px 35px rgba(0,0,0,.06);
+}
+
+.profile-photo{
+  width:100%;
+  height:100px;
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--pink),var(--orange));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:55px;
+  margin-bottom:20px;
+}
+
+.profile-name{
+  font-size:30px;
+  font-weight:800;
+}
+
+.profile-job{
+  color:var(--gray);
+  margin-bottom:25px;
+}
+
+.profile-text p{
+  line-height:1.85;
+  font-size:16px;
+}
+
+.mark{
+  color:var(--pink);
+  font-weight:800;
+}
+
+.profile-questions{
+  background:var(--black);
+  color:white;
+  border-radius:30px;
+  padding:30px;
+}
+
+.profile-questions h3{
+  color:var(--cream);
+}
+
+.q-item{
+  margin-bottom:22px;
+}
+
+.q-item p{
+  line-height:1.5;
+  font-weight:600;
+}
+
+.q-options{
+  display:grid;
+  gap:8px;
+}
+
+.q-options button{
+  background:#262626;
+  color:white;
+  border:1px solid #444;
+  border-radius:12px;
+  padding:11px;
+  text-align:left;
+  cursor:pointer;
+}
+
+.q-options button:hover{
+  background:#333;
+}
+
+.q-options button.correct{
+  background:#166534;
+  border-color:#22c55e;
+}
+
+.q-options button.wrong{
+  background:#7f1d1d;
+  border-color:#ef4444;
+}
+
+.match-area{
+  text-align:center;
+  margin-top:25px;
+}
+
+.match-heart{
+  display:none;
+  font-size:70px;
+  animation:heart .5s ease;
+}
+
+@keyframes heart{
+  0%{transform:scale(.4)}
+  70%{transform:scale(1.2)}
+  100%{transform:scale(1)}
+}
+
+.grammar-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.grammar-box{
+  background:white;
+  padding:28px;
+  border-radius:25px;
+  box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.grammar-box h3{
+  color:var(--purple);
+}
+
+.example{
+  background:#f7f7fb;
+  padding:13px 16px;
+  border-radius:12px;
+  margin:9px 0;
+  line-height:1.6;
+}
+
+.highlight{
+  color:var(--pink);
+  font-weight:800;
+}
+
+.formula{
+  background:var(--black);
+  color:white;
+  padding:20px;
+  border-radius:18px;
+  text-align:center;
+  font-weight:700;
+  margin-top:20px;
+}
+
+.exercise-card{
+  background:white;
+  max-width:850px;
+  margin:auto;
+  padding:35px;
+  border-radius:28px;
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+
+.exercise{
+  padding:20px 0;
+  border-bottom:1px solid #eee;
+}
+
+.exercise:last-child{
+  border-bottom:0;
+}
+
+.exercise p{
+  line-height:1.6;
+}
+
+input[type="text"],
+input[type="number"],
+textarea{
+  width:100%;
+  border:2px solid #ddd;
+  border-radius:13px;
+  padding:13px 15px;
+  outline:none;
+  font-size:15px;
+  resize:vertical;
+}
+
+input:focus,
+textarea:focus{
+  border-color:var(--purple);
+}
+
+.answer-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.answer-row input{
+  flex:1;
+}
+
+.small-check{
+  background:var(--purple);
+  color:white;
+  border:0;
+  padding:12px 16px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.exercise-feedback{
+  margin-top:10px;
+  font-size:13px;
+  display:none;
+}
+
+.exercise-feedback.show{
+  display:block;
+}
+
+.exercise-feedback.good{
+  color:var(--green);
+}
+
+.exercise-feedback.bad{
+  color:var(--red);
+}
+
+.profile-form{
+  background:white;
+  border-radius:30px;
+  padding:35px;
+  max-width:850px;
+  margin:auto;
+  box-shadow:0 12px 35px rgba(0,0,0,.07);
+}
+
+.form-group{
+  margin-bottom:22px;
+}
+
+.form-group label{
+  display:block;
+  font-weight:800;
+  margin-bottom:9px;
+}
+
+.choice-grid{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.choice-btn{
+  border:2px solid #ddd;
+  background:white;
+  padding:12px 18px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.choice-btn.selected{
+  background:var(--purple);
+  color:white;
+  border-color:var(--purple);
+}
+
+.generated-profile{
+  display:none;
+  margin-top:30px;
+  background:linear-gradient(145deg,#fff,#fff7f8);
+  border:2px solid #ffd1da;
+  border-radius:25px;
+  padding:30px;
+}
+
+.generated-profile.show{
+  display:block;
+}
+
+.generated-name{
+  font-size:28px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.generated-profile p{
+  line-height:1.7;
+}
+
+.tinder-choice{
+  display:inline-block;
+  background:var(--pink);
+  color:white;
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:13px;
+}
+
+.flashcard-container{
+  max-width:650px;
+  margin:auto;
+  perspective:1000px;
+}
+
+.flashcard{
+  height:340px;
+  cursor:pointer;
+  position:relative;
+}
+
+.flashcard-inner{
+  position:absolute;
+  width:100%;
+  height:100%;
+  transition:transform .6s;
+  transform-style:preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner{
+  transform:rotateY(180deg);
+}
+
+.flash-face{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
+  text-align:center;
+  box-shadow:0 15px 45px rgba(0,0,0,.1);
+}
+
+.flash-front{
+  background:var(--black);
+  color:white;
+}
+
+.flash-back{
+  background:white;
+  color:var(--purple);
+  transform:rotateY(180deg);
+}
+
+.flash-label{
+  font-size:12px;
+  font-weight:800;
+  opacity:.6;
+  margin-bottom:20px;
+}
+
+.flash-text{
+  font-size:23px;
+  line-height:1.5;
+  font-weight:700;
+}
+
+.flash-progress{
+  text-align:center;
+  margin-top:20px;
+  font-weight:700;
+  color:var(--gray);
+}
+
+@media(max-width:800px){
+  .vocab-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .profile-card,
+  .grammar-grid{
+    grid-template-columns:1fr;
+  }
+
+  .profile-photo{
+    height:80px;
+  }
+}
+
+@media(max-width:500px){
+  .screen{
+    padding:90px 15px 35px;
+  }
+
+  .vocab-grid{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .vocab-card{
+    min-height:125px;
+    padding:15px 8px;
+  }
+
+  .profile-text,
+  .profile-questions,
+  .exercise-card,
+  .profile-form{
+    padding:23px;
+  }
+
+  .flashcard{
+    height:300px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<div class="topbar">
+  <div class="brand">ARVA ENGLISH</div>
+  <div class="step-counter" id="stepCounter">1 / 12</div>
+</div>
+
+
+<!-- INTRO -->
+<section class="screen active" id="intro">
+  <div class="container hero">
+    <div class="kicker">ESPAÑOL A1 • TINDER</div>
+    <h1>💘 ¿Hacemos MATCH?</h1>
+    <p class="subtitle">
+      Describe tu personalidad, habla de tus gustos,
+      conoce a otras personas y crea tu propio perfil.
+    </p>
+
+    <div class="nav-buttons">
+      <button class="btn btn-pink" onclick="goTo('objective',1)">
+        Empezar 💘
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- OBJECTIVE -->
+<section class="screen" id="objective">
+  <div class="container">
+    <div class="section-title">
+      <div class="kicker">OBJECTIVE</div>
+      <h2>Today's goal 🎯</h2>
+    </div>
+
+    <div class="objective-box">
+      <p>
+        By the end of the class, students will be able to describe their
+        personality, talk about their likes and hobbies, ask questions
+        about other people, and express what they are looking for in a partner.
+      </p>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-primary" onclick="goTo('context',2)">
+        Siguiente →
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTEXT -->
+<section class="screen" id="context">
+  <div class="container">
+    <div class="section-title">
+      <div class="kicker">CONTEXTO</div>
+      <h2>¿Qué buscas en una persona? 💘</h2>
+    </div>
+
+    <div class="context-card">
+      <p>
+        Imagina que estás usando una aplicación para conocer personas.
+        Ves diferentes perfiles y quieres saber cómo son, qué les gusta
+        hacer en su tiempo libre y qué buscan en una pareja.
+      </p>
+
+      <div class="question-box">
+        💬 ¿Qué es importante para ti en una persona?
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-primary" onclick="goTo('vocabulary',3)">
+        Ver vocabulario →
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- VOCABULARY -->
+<section class="screen" id="vocabulary">
+  <div class="container">
+
+    <div class="section-title">
+      <div class="kicker">VOCABULARY</div>
+      <h2>Personalidad + hobbies 💘</h2>
+      <p>Haz clic en una palabra para ver la traducción.</p>
+    </div>
+
+    <div class="vocab-grid">
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">😎</span>
+        <div class="vocab-word">chévere</div>
+        <div class="vocab-translation">cool / nice</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('chévere')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">🤭</span>
+        <div class="vocab-word">tímido/a</div>
+        <div class="vocab-translation">shy</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('tímido, tímida')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">🗣️</span>
+        <div class="vocab-word">extrovertido/a</div>
+        <div class="vocab-translation">extroverted</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('extrovertido, extrovertida')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">😂</span>
+        <div class="vocab-word">chistoso/a</div>
+        <div class="vocab-translation">funny</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('chistoso, chistosa')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">😐</span>
+        <div class="vocab-word">serio/a</div>
+        <div class="vocab-translation">serious</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('serio, seria')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">🥱</span>
+        <div class="vocab-word">aburrido/a</div>
+        <div class="vocab-translation">boring</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('aburrido, aburrida')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">💸</span>
+        <div class="vocab-word">tacaño/a</div>
+        <div class="vocab-translation">stingy</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('tacaño, tacaña')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">🎁</span>
+        <div class="vocab-word">generoso/a</div>
+        <div class="vocab-translation">generous</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('generoso, generosa')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">💃</span>
+        <div class="vocab-word">bailar</div>
+        <div class="vocab-translation">to dance</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('bailar')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">👩‍🍳</span>
+        <div class="vocab-word">cocinar</div>
+        <div class="vocab-translation">to cook</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('cocinar')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">🎧</span>
+        <div class="vocab-word">escuchar música</div>
+        <div class="vocab-translation">to listen to music</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('escuchar música')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">🎬</span>
+        <div class="vocab-word">ver películas</div>
+        <div class="vocab-translation">to watch movies</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('ver películas')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">🏋️</span>
+        <div class="vocab-word">hacer ejercicio</div>
+        <div class="vocab-translation">to exercise</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('hacer ejercicio')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">👯</span>
+        <div class="vocab-word">salir con amigos</div>
+        <div class="vocab-translation">to go out with friends</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('salir con amigos')">🔊</button>
+      </div>
+
+      <div class="vocab-card" onclick="toggleVocab(this)">
+        <span class="vocab-emoji">📚</span>
+        <div class="vocab-word">leer</div>
+        <div class="vocab-translation">to read</div>
+        <button class="audio-btn" onclick="event.stopPropagation(); speakText('leer')">🔊</button>
+      </div>
+
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-primary" onclick="goTo('vocabQuiz',4)">
+        Practicar →
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- VOCAB QUIZ -->
+<section class="screen" id="vocabQuiz">
+  <div class="container">
+
+    <div class="section-title">
+      <div class="kicker">CHECK</div>
+      <h2>¿Cuánto vocabulario recuerdas?</h2>
+    </div>
+
+    <div class="quiz-card">
+
+      <div class="quiz-number">Pregunta 1 de 5</div>
+      <div class="quiz-question">
+        Una persona que no habla mucho es...
+      </div>
+
+      <div class="options">
+        <button class="option" onclick="vocabAnswer(this,false)">extrovertida</button>
+        <button class="option" onclick="vocabAnswer(this,true)">tímida</button>
+        <button class="option" onclick="vocabAnswer(this,false)">generosa</button>
+      </div>
+
+      <div class="feedback" id="vq1"></div>
+
+      <hr style="border:0;border-top:1px solid #eee;margin:30px 0">
+
+      <div class="quiz-number">Pregunta 2 de 5</div>
+      <div class="quiz-question">
+        ¿Qué actividad haces con música en una discoteca?
+      </div>
+
+      <div class="options">
+        <button class="option" onclick="vocabAnswer(this,true)">bailar</button>
+        <button class="option" onclick="vocabAnswer(this,false)">leer</button>
+        <button class="option" onclick="vocabAnswer(this,false)">cocinar</button>
+      </div>
+
+      <hr style="border:0;border-top:1px solid #eee;margin:30px 0">
+
+      <div class="quiz-number">Pregunta 3 de 5</div>
+      <div class="quiz-question">
+        Una persona que está en casa siempre, no es interesante y no es divertida es...
+      </div>
+
+      <div class="options">
+        <button class="option" onclick="vocabAnswer(this,true)">aburrida</button>
+        <button class="option" onclick="vocabAnswer(this,false)">chévere</button>
+        <button class="option" onclick="vocabAnswer(this,false)">generosa</button>
+      </div>
+
+      <hr style="border:0;border-top:1px solid #eee;margin:30px 0">
+
+      <div class="quiz-number">Pregunta 4 de 5</div>
+      <div class="quiz-question">
+        ¿Qué actividad haces con comida, como pasteles, galletas o carne asada?
+      </div>
+
+      <div class="options">
+        <button class="option" onclick="vocabAnswer(this,false)">bailar</button>
+        <button class="option" onclick="vocabAnswer(this,true)">cocinar</button>
+        <button class="option" onclick="vocabAnswer(this,false)">nadar</button>
+      </div>
+
+      <hr style="border:0;border-top:1px solid #eee;margin:30px 0">
+
+      <div class="quiz-number">Pregunta 5 de 5</div>
+      <div class="quiz-question">
+        Una persona que nunca quiere gastar dinero y nunca invita a sus amigos es...
+      </div>
+
+      <div class="options">
+        <button class="option" onclick="vocabAnswer(this,false)">generosa</button>
+        <button class="option" onclick="vocabAnswer(this,true)">tacaña</button>
+        <button class="option" onclick="vocabAnswer(this,false)">chistosa</button>
+      </div>
+
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-primary" onclick="goTo('profiles',5)">
+        Ver perfiles 💘
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- PROFILES -->
+<section class="screen" id="profiles">
+  <div class="container profile-wrap">
+
+    <div class="profile-header">
+      <div>
+        <div class="kicker">TINDER</div>
+        <h2 id="profileTitle">Sofía</h2>
+      </div>
+      <div class="profile-counter" id="profileCounter">Perfil 1 de 3</div>
+    </div>
+
+    <div class="profile-card">
+
+      <div class="profile-text">
+
+        <div class="profile-photo" id="profileEmoji">👩🏻‍🏫</div>
+
+        <div class="profile-name" id="profileName">
+          Sofía, 27
+        </div>
+
+        <div class="profile-job" id="profileJob">
+          Profesora de matemáticas 📐
+        </div>
+
+        <div id="profileDescription"></div>
+
+      </div>
+
+      <div class="profile-questions">
+        <h3>🔎 Conoce a esta persona</h3>
+        <div id="profileQuestions"></div>
+
+        <div class="match-area">
+          <div class="match-heart" id="matchHeart">❤️</div>
+
+          <button class="btn btn-pink" onclick="showMatch()">
+            ❤️ MATCH
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-light" id="nextProfileBtn" onclick="nextProfile()">
+        ➡️ SIGUIENTE
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- GRAMMAR -->
+<section class="screen" id="grammar">
+  <div class="container">
+
+    <div class="section-title">
+      <div class="kicker">GRAMMAR</div>
+      <h2>💘 GUSTAR + personalidad</h2>
+      <p>Observa cómo hablamos de lo que nos gusta.</p>
+    </div>
+
+    <div class="grammar-grid">
+
+      <div class="grammar-box">
+        <h3>1. Los pronombres</h3>
+
+        <div class="example">
+          A mí <span class="highlight">me</span> gusta bailar.
+        </div>
+
+        <div class="example">
+          A ti <span class="highlight">te</span> gusta leer.
+        </div>
+
+        <div class="example">
+          A Sofía / él / ella <span class="highlight">le</span> gusta ir a la playa.
+        </div>
+
+        <div class="example">
+          A Jorge y a mí <span class="highlight">nos</span> gusta leer cómics.
+        </div>
+
+        <div class="example">
+          A vosotros <span class="highlight">os</span> gusta bailar.
+          <small>(menos común en Latinoamérica)</small>
+        </div>
+
+        <div class="example">
+          A ustedes <span class="highlight">les</span> gustan los deportes.
+        </div>
+
+        <div class="example">
+          A ellos / ellas <span class="highlight">les</span> gusta cocinar.
+        </div>
+      </div>
+
+
+      <div class="grammar-box">
+        <h3>2. GUSTA o GUSTAN</h3>
+
+        <div class="example">
+          Pronombre + <span class="highlight">gusta</span> + infinitivo
+          <br>
+          <strong>Me gusta bailar.</strong>
+        </div>
+
+        <div class="example">
+          Pronombre + <span class="highlight">gusta</span> + sustantivo singular
+          <br>
+          <strong>Le gusta el arroz con pollo.</strong>
+        </div>
+
+        <div class="example">
+          Pronombre + <span class="highlight">gustan</span> + sustantivo plural
+          <br>
+          <strong>Les gustan los deportes.</strong>
+        </div>
+
+        <div class="formula">
+          A + persona + PRONOMBRE + GUSTA/GUSTAN + actividad/cosa
+        </div>
+      </div>
+
+
+      <div class="grammar-box">
+        <h3>3. SER + personalidad</h3>
+
+        <div class="example">
+          <strong>Soy tímida.</strong>
+        </div>
+
+        <div class="example">
+          <strong>Él es generoso.</strong>
+        </div>
+
+        <div class="example">
+          <strong>Andrea es creativa.</strong>
+        </div>
+
+        <div class="example">
+          <strong>Sofía es extrovertida y activa.</strong>
+        </div>
+      </div>
+
+
+      <div class="grammar-box">
+        <h3>4. BUSCAR + persona</h3>
+
+        <div class="example">
+          <strong>Busco un hombre tranquilo.</strong>
+        </div>
+
+        <div class="example">
+          <strong>Busco una mujer generosa.</strong>
+        </div>
+
+        <div class="example">
+          <strong>Busco una persona chistosa.</strong>
+        </div>
+
+        <div class="example">
+          <strong>No me gustan los hombres que fuman.</strong>
+        </div>
+
+        <div class="example">
+          <strong>A mi padre no le gusta el arroz con pollo.</strong>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-primary" onclick="goTo('practice1',7)">
+        Practicar →
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- PRACTICE 1 -->
+<section class="screen" id="practice1">
+  <div class="container">
+
+    <div class="section-title">
+      <div class="kicker">PRACTICE 1 / 3</div>
+      <h2>Conjuga el verbo</h2>
+      <p>Completa la frase con el verbo correcto.</p>
+    </div>
+
+    <div class="exercise-card">
+
+      <div class="exercise">
+        <p><strong>1.</strong> Sofía _____ (nadar) en su tiempo libre.</p>
+        <div class="answer-row">
+          <input type="text" id="p1q1">
+          <button class="small-check" onclick="checkAnswer('p1q1','nada','p1f1')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p1f1"></div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>2.</strong> A mí no me _____ (gustar) hacer ejercicio.</p>
+        <div class="answer-row">
+          <input type="text" id="p1q2">
+          <button class="small-check" onclick="checkAnswer('p1q2','gusta','p1f2')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p1f2"></div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>3.</strong> Mi esposa y yo _____ (bailar) salsa en casa cuando cocinamos.</p>
+        <div class="answer-row">
+          <input type="text" id="p1q3">
+          <button class="small-check" onclick="checkAnswer('p1q3','bailamos','p1f3')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p1f3"></div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>4.</strong> Andrea _____ (salir) con sus amigos los fines de semana.</p>
+        <div class="answer-row">
+          <input type="text" id="p1q4">
+          <button class="small-check" onclick="checkAnswer('p1q4','sale','p1f4')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p1f4"></div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>5.</strong> Valeria _____ (leer) mucho cuando tiene tiempo libre.</p>
+        <div class="answer-row">
+          <input type="text" id="p1q5">
+          <button class="small-check" onclick="checkAnswer('p1q5','lee','p1f5')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p1f5"></div>
+      </div>
+
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-primary" onclick="goTo('practice2',8)">
+        Siguiente →
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- PRACTICE 2 -->
+<section class="screen" id="practice2">
+  <div class="container">
+
+    <div class="section-title">
+      <div class="kicker">PRACTICE 2 / 3</div>
+      <h2>¿Cómo es esta persona?</h2>
+      <p>Escribe una palabra de personalidad.</p>
+    </div>
+
+    <div class="exercise-card">
+
+      <div class="exercise">
+        <p>
+          <strong>1.</strong>
+          Sofía tiene 2 hijos, siempre está cansada pero le gusta mucho
+          ver películas en la noche. Cuando tiene tiempo libre ella prefiere
+          hacer yoga o pintar.
+        </p>
+        <div class="answer-row">
+          <input type="text" id="p2q1">
+          <button class="small-check" onclick="checkAnswer('p2q1','tranquila','p2f1')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p2f1"></div>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>2.</strong>
+          Carolina habla con todas las personas, le encanta conocer gente
+          nueva y siempre quiere salir con sus amigos.
+        </p>
+        <div class="answer-row">
+          <input type="text" id="p2q2">
+          <button class="small-check" onclick="checkAnswer('p2q2','extrovertida','p2f2')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p2f2"></div>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>3.</strong>
+          Laura siempre hace bromas y hace reír a sus amigos.
+          Todos dicen que tiene muy buen sentido del humor.
+        </p>
+        <div class="answer-row">
+          <input type="text" id="p2q3">
+          <button class="small-check" onclick="checkAnswer('p2q3','chistosa','p2f3')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p2f3"></div>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>4.</strong>
+          María nunca quiere gastar dinero. Cuando sale con sus amigos,
+          nunca quiere pagar y siempre busca la opción más barata.
+        </p>
+        <div class="answer-row">
+          <input type="text" id="p2q4">
+          <button class="small-check" onclick="checkAnswer('p2q4','tacaña','p2f4')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p2f4"></div>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>5.</strong>
+          Ana ayuda a sus amigos, comparte su comida y le encanta hacer regalos.
+        </p>
+        <div class="answer-row">
+          <input type="text" id="p2q5">
+          <button class="small-check" onclick="checkAnswer('p2q5','generosa','p2f5')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p2f5"></div>
+      </div>
+
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-primary" onclick="goTo('practice3',9)">
+        Siguiente →
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- PRACTICE 3 -->
+<section class="screen" id="practice3">
+  <div class="container">
+
+    <div class="section-title">
+      <div class="kicker">PRACTICE 3 / 3</div>
+      <h2>Crea las preguntas</h2>
+      <p>Traduce la pregunta al español.</p>
+    </div>
+
+    <div class="exercise-card">
+
+      <div class="exercise">
+        <p><strong>1.</strong> What does Sofia like to do on weekends?</p>
+        <div class="answer-row">
+          <input type="text" id="p3q1">
+          <button class="small-check" onclick="checkAnswer('p3q1','¿Qué le gusta hacer a Sofía los fines de semana?','p3f1')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p3f1"></div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>2.</strong> Do you like sushi?</p>
+        <div class="answer-row">
+          <input type="text" id="p3q2">
+          <button class="small-check" onclick="checkAnswer('p3q2','¿Te gusta el sushi?','p3f2')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p3f2"></div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>3.</strong> When do you have free time?</p>
+        <div class="answer-row">
+          <input type="text" id="p3q3">
+          <button class="small-check" onclick="checkAnswer('p3q3','¿Cuándo tienes tiempo libre?','p3f3')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p3f3"></div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>4.</strong> What is your personality like?</p>
+        <div class="answer-row">
+          <input type="text" id="p3q4">
+          <button class="small-check" onclick="checkAnswer('p3q4','¿Cómo es tu personalidad?','p3f4')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p3f4"></div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>5.</strong> What does Andrea like to do in her free time?</p>
+        <div class="answer-row">
+          <input type="text" id="p3q5">
+          <button class="small-check" onclick="checkAnswer('p3q5','¿Qué le gusta hacer a Andrea en su tiempo libre?','p3f5')">Check</button>
+        </div>
+        <div class="exercise-feedback" id="p3f5"></div>
+      </div>
+
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-primary" onclick="goTo('challenge',10)">
+        Crear mi perfil 💘
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CHALLENGE -->
+<section class="screen" id="challenge">
+  <div class="container">
+
+    <div class="section-title">
+      <div class="kicker">CHALLENGE</div>
+      <h2>💘 CREA TU PERFIL DE TINDER</h2>
+      <p>Completa tu perfil y después preséntalo a tu compañero.</p>
+    </div>
+
+    <div class="profile-form">
+
+      <div class="form-group">
+        <label>1. Mi sexo</label>
+
+        <div class="choice-grid">
+          <button class="choice-btn" id="sexMale" onclick="selectChoice('sex','male')">
+            👨 Hombre
+          </button>
+
+          <button class="choice-btn" id="sexFemale" onclick="selectChoice('sex','female')">
+            👩 Mujer
+          </button>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="myName">2. Tu nombre</label>
+        <input type="text" id="myName" placeholder="Escribe tu nombre">
+      </div>
+
+
+      <div class="form-group">
+        <label for="myAge">3. Tu edad</label>
+        <input type="number" id="myAge" placeholder="Ej. 30" min="1" max="100">
+      </div>
+
+
+      <div class="form-group">
+        <label for="myPersonality">
+          4. Soy una persona...
+        </label>
+        <textarea
+          id="myPersonality"
+          rows="2"
+          placeholder="Ej. chévere, divertida y extrovertida."
+        ></textarea>
+      </div>
+
+
+      <div class="form-group">
+        <label for="myHobbies">
+          5. En mi tiempo libre me gusta...
+        </label>
+        <textarea
+          id="myHobbies"
+          rows="2"
+          placeholder="Ej. bailar y salir con amigos."
+        ></textarea>
+      </div>
+
+
+      <div class="form-group">
+        <label for="myDislike">
+          6. No me gusta...
+        </label>
+        <textarea
+          id="myDislike"
+          rows="2"
+          placeholder="Ej. hacer ejercicio."
+        ></textarea>
+      </div>
+
+
+      <div class="form-group">
+        <label for="myLooking">
+          7. Busco una persona...
+        </label>
+        <textarea
+          id="myLooking"
+          rows="2"
+          placeholder="Ej. tranquila, chistosa y generosa."
+        ></textarea>
+      </div>
+
+
+      <div class="form-group">
+        <label>8. Busco</label>
+
+        <div class="choice-grid">
+          <button class="choice-btn" id="seekMale" onclick="selectChoice('seek','male')">
+            👨 Hombre
+          </button>
+
+          <button class="choice-btn" id="seekFemale" onclick="selectChoice('seek','female')">
+            👩 Mujer
+          </button>
+
+          <button class="choice-btn" id="seekBoth" onclick="selectChoice('seek','both')">
+            👨‍❤️‍👨 Los dos
+          </button>
+        </div>
+      </div>
+
+
+      <div class="nav-buttons">
+        <button class="btn btn-pink" onclick="generateProfile()">
+          💘 Crear mi perfil
+        </button>
+      </div>
+
+
+      <div class="generated-profile" id="generatedProfile">
+
+        <div class="generated-name" id="generatedName"></div>
+
+        <div id="generatedSex" class="tinder-choice"></div>
+
+        <p>
+          <strong>Soy una persona...</strong><br>
+          <span id="generatedPersonality"></span>
+        </p>
+
+        <p>
+          <strong>En mi tiempo libre me gusta...</strong><br>
+          <span id="generatedHobbies"></span>
+        </p>
+
+        <p>
+          <strong>No me gusta...</strong><br>
+          <span id="generatedDislike"></span>
+        </p>
+
+        <p>
+          <strong>Busco una persona...</strong><br>
+          <span id="generatedLooking"></span>
+        </p>
+
+        <p>
+          <strong>Busco:</strong>
+          <span id="generatedSeek" class="tinder-choice"></span>
+        </p>
+
+        <div class="question-box">
+          🗣️ Presenta tu perfil a tu compañero.
+          <br><br>
+          Tu compañero decide:
+          <br><br>
+          ❤️ MATCH
+          <br>
+          ➡️ SIGUIENTE
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-primary" onclick="goTo('final',11)">
+        Finalizar clase →
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- FINAL -->
+<section class="screen" id="final">
+  <div class="container">
+
+    <div class="section-title">
+      <div class="kicker">FINAL</div>
+      <h2>💬 Frases para citas</h2>
+      <p>Haz clic en la tarjeta para ver la traducción.</p>
+    </div>
+
+    <div class="flashcard-container">
+
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+
+        <div class="flashcard-inner">
+
+          <div class="flash-face flash-front">
+            <div class="flash-label">ENGLISH</div>
+            <div class="flash-text" id="flashEnglish">
+              Are you free on Saturday night?
+            </div>
+          </div>
+
+          <div class="flash-face flash-back">
+            <div class="flash-label">ESPAÑOL</div>
+            <div class="flash-text" id="flashSpanish">
+              ¿Estás libre el sábado en la noche?
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="flash-progress" id="flashProgress">
+      1 / 5
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-light" onclick="previousFlashcard()">
+        ← Anterior
+      </button>
+
+      <button class="btn btn-pink" onclick="nextFlashcard()">
+        Siguiente →
+      </button>
+    </div>
+
+    <div style="text-align:center;margin-top:35px;color:#777;font-size:13px;">
+      ARVA • Español con Kat 💘
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   NAVEGACIÓN
+========================================= */
+
+const screens = [
+  "intro",
+  "objective",
+  "context",
+  "vocabulary",
+  "vocabQuiz",
+  "profiles",
+  "grammar",
+  "practice1",
+  "practice2",
+  "practice3",
+  "challenge",
+  "final"
+];
+
+function goTo(id, number){
+
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
+  });
+
+  const target = document.getElementById(id);
+
+  if(target){
+    target.classList.add("active");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  const percentage = (number / 11) * 100;
+
+  document.getElementById("progressFill").style.width =
+    percentage + "%";
+
+  document.getElementById("stepCounter").textContent =
+    (number + 1) + " / 12";
+}
+
+
+/* =========================================
+   AUDIO — ESPAÑOL LATINO / COLOMBIA
+========================================= */
+
+let spanishVoice = null;
+
+function loadSpanishVoice(){
+
+  const voices = speechSynthesis.getVoices();
+
+  if(!voices || !voices.length){
+    return;
+  }
+
+  const normalized = voices.map(v => ({
+    voice:v,
+    lang:(v.lang || "").toLowerCase()
+  }));
+
+  /*
+    Prioridad:
+    1. Colombia
+    2. Español Latinoamericano
+    3. México
+    4. Estados Unidos
+    5. Cualquier español
+  */
+
+  const preferred =
+    normalized.find(v => v.lang === "es-co") ||
+    normalized.find(v => v.lang === "es-419") ||
+    normalized.find(v => v.lang === "es-mx") ||
+    normalized.find(v => v.lang === "es-us") ||
+    normalized.find(v => v.lang.startsWith("es-")) ||
+    normalized.find(v => v.lang === "es");
+
+  if(preferred){
+    spanishVoice = preferred.voice;
+  }
+}
+
+speechSynthesis.onvoiceschanged = loadSpanishVoice;
+
+loadSpanishVoice();
+
+
+function speakText(text){
+
+  if(!("speechSynthesis" in window)){
+    alert("Tu navegador no permite audio de voz.");
+    return;
+  }
+
+  loadSpanishVoice();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+
+  if(spanishVoice){
+    utterance.voice = spanishVoice;
+    utterance.lang = spanishVoice.lang || "es-CO";
+  }else{
+    utterance.lang = "es-CO";
+  }
+
+  utterance.rate = 0.8;
+  utterance.pitch = 1;
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
+}
+
+
+/* =========================================
+   VOCABULARIO
+========================================= */
+
+function toggleVocab(card){
+  card.classList.toggle("revealed");
+}
+
+
+/* =========================================
+   VOCAB QUIZ
+========================================= */
+
+function vocabAnswer(button,isCorrect){
+
+  const siblings = button.parentElement.querySelectorAll(".option");
+
+  siblings.forEach(btn=>{
+    btn.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+
+  if(isCorrect){
+    button.style.background="#ecfdf3";
+    button.style.borderColor="#16a34a";
+  }else{
+    button.style.background="#fef2f2";
+    button.style.borderColor="#dc2626";
+  }
+}
+
+
+/* =========================================
+   PROFILES
+========================================= */
+
+const profiles = [
+
+  {
+    name:"Sofía",
+    age:27,
+    job:"Profesora de matemáticas 📐",
+    emoji:"👩🏻‍🏫",
+
+    description:`
+      <p>
+        Soy profesora de matemáticas en un colegio.
+        Me gusta mucho mi trabajo porque solo trabajo en las mañanas,
+        me gusta mucho trabajar con niños.
+      </p>
+
+      <p>
+        Soy una persona muy
+        <span class="mark">EXTROVERTIDA</span> y
+        <span class="mark">ACTIVA</span>.
+        En mi tiempo libre me gusta ir a
+        <span class="mark">NADAR</span> o a veces hago
+        <span class="mark">KARATE</span>.
+      </p>
+
+      <p>
+        No tengo hijos pero tengo 2 perritos.
+        Busco un hombre
+        <span class="mark">DIVERTIDO</span>,
+        <span class="mark">CHÉVERE</span> y
+        <span class="mark">TRANQUILO</span>.
+        No me gustan los hombres que fuman.
+      </p>
+    `,
+
+    questions:[
+      {
+        q:"¿Qué hace Sofía en su tiempo libre?",
+        options:[
+          "Cocina y lee.",
+          "Nada y hace karate.",
+          "Baila y escucha música."
+        ],
+        correct:1
+      },
+      {
+        q:"¿Qué busca Sofía en un hombre?",
+        options:[
+          "Serio y tímido.",
+          "Divertido, chévere y tranquilo.",
+          "Extrovertido y activo."
+        ],
+        correct:1
+      },
+      {
+        q:"¿Cómo es la personalidad de Sofía?",
+        options:[
+          "Tímida y aburrida.",
+          "Seria y tranquila.",
+          "Extrovertida y activa."
+        ],
+        correct:2
+      }
+    ]
+  },
+
+
+  {
+    name:"Valeria",
+    age:38,
+    job:"Fotógrafa 📸",
+    emoji:"📸",
+
+    description:`
+      <p>
+        Soy fotógrafa y trabajo en diferentes lugares de la ciudad.
+        Me encanta mi trabajo porque conozco personas nuevas.
+      </p>
+
+      <p>
+        Soy una persona
+        <span class="mark">CHISTOSA</span>,
+        <span class="mark">TRANQUILA</span> y un poco
+        <span class="mark">TÍMIDA</span>.
+        En mi tiempo libre me gusta
+        <span class="mark">IR A LA IGLESIA</span>,
+        <span class="mark">LEER</span> y
+        <span class="mark">DORMIR</span>.
+      </p>
+
+      <p>
+        Tengo 3 hijos, 2 viven conmigo y otro vive con su papá.
+      </p>
+
+      <p>
+        Busco un hombre
+        <span class="mark">GENEROSO</span> y
+        <span class="mark">TRANQUILO</span>.
+      </p>
+    `,
+
+    questions:[
+      {
+        q:"¿Qué hace Valeria?",
+        options:[
+          "Profesora.",
+          "Fotógrafa.",
+          "Cocinera."
+        ],
+        correct:1
+      },
+      {
+        q:"¿Qué hace Valeria en su tiempo libre?",
+        options:[
+          "Va a la iglesia, lee y duerme.",
+          "Baila, cocina y hace ejercicio.",
+          "Escucha música y ve películas."
+        ],
+        correct:0
+      },
+      {
+        q:"¿Cómo es la personalidad de Valeria?",
+        options:[
+          "Extrovertida y activa.",
+          "Chistosa, tranquila y tímida.",
+          "Seria y aburrida."
+        ],
+        correct:1
+      },
+      {
+        q:"¿Cuántos hijos tiene Valeria?",
+        options:[
+          "Dos.",
+          "Tres.",
+          "No tiene hijos."
+        ],
+        correct:1
+      }
+    ]
+  },
+
+
+  {
+    name:"Andrea",
+    age:20,
+    job:"Diseñadora 🎨",
+    emoji:"🎨",
+
+    description:`
+      <p>
+        Soy diseñadora y trabajo desde mi casa.
+        Me encanta mi trabajo porque puedo ser creativa.
+      </p>
+
+      <p>
+        Soy una persona
+        <span class="mark">CREATIVA</span>,
+        <span class="mark">AMOROSA</span> y un poco
+        <span class="mark">PEREZOSA</span>.
+        En mi tiempo libre me gusta
+        <span class="mark">BAILAR</span> y
+        <span class="mark">SALIR CON AMIGOS</span>,
+        pero no me gusta
+        <span class="mark">HACER EJERCICIO</span>.
+      </p>
+
+      <p>
+        No tengo hijos, pero quiero tener hijos en el futuro.
+      </p>
+
+      <p>
+        Busco un hombre
+        <span class="mark">TRANQUILO</span>,
+        <span class="mark">CHISTOSO</span> y
+        <span class="mark">GENEROSO</span>.
+        No me gustan los hombres
+        <span class="mark">TACAÑOS</span>.
+      </p>
+    `,
+
+    questions:[
+      {
+        q:"¿Dónde trabaja Andrea?",
+        options:[
+          "En una escuela.",
+          "Desde su casa.",
+          "En un restaurante."
+        ],
+        correct:1
+      },
+      {
+        q:"¿Qué hace Andrea en su tiempo libre?",
+        options:[
+          "Baila y sale con amigos.",
+          "Lee y hace ejercicio.",
+          "Cocina y ve películas."
+        ],
+        correct:0
+      },
+      {
+        q:"¿Cómo es la personalidad de Andrea?",
+        options:[
+          "Tímida y seria.",
+          "Creativa, amorosa y perezosa.",
+          "Aburrida y tacaña."
+        ],
+        correct:1
+      },
+      {
+        q:"¿Qué busca Andrea en un hombre?",
+        options:[
+          "Tranquilo, chistoso y generoso.",
+          "Serio, tímido y aburrido.",
+          "Extrovertido, activo y tacaño."
+        ],
+        correct:0
+      }
+    ]
+  }
+
+];
+
+let currentProfile = 0;
+
+function renderProfile(){
+
+  const profile = profiles[currentProfile];
+
+  document.getElementById("profileTitle").textContent =
+    profile.name;
+
+  document.getElementById("profileCounter").textContent =
+    `Perfil ${currentProfile + 1} de ${profiles.length}`;
+
+  document.getElementById("profileEmoji").textContent =
+    profile.emoji;
+
+  document.getElementById("profileName").textContent =
+    `${profile.name}, ${profile.age}`;
+
+  document.getElementById("profileJob").textContent =
+    profile.job;
+
+  document.getElementById("profileDescription").innerHTML =
+    profile.description;
+
+  const questionsContainer =
+    document.getElementById("profileQuestions");
+
+  questionsContainer.innerHTML="";
+
+  profile.questions.forEach((question,index)=>{
+
+    const item = document.createElement("div");
+
+    item.className="q-item";
+
+    let html = `
+      <p>${index+1}. ${question.q}</p>
+      <div class="q-options">
+    `;
+
+    question.options.forEach((option,optionIndex)=>{
+
+      html += `
+        <button
+          onclick="answerProfile(this,${optionIndex},${question.correct})">
+          ${option}
+        </button>
+      `;
+
+    });
+
+    html += `
+      </div>
+    `;
+
+    item.innerHTML=html;
+
+    questionsContainer.appendChild(item);
+
+  });
+
+  document.getElementById("matchHeart").style.display="none";
+
+  document.getElementById("nextProfileBtn").textContent =
+    currentProfile === profiles.length - 1
+      ? "➡️ Continuar a Grammar"
+      : "➡️ SIGUIENTE";
+}
+
+function answerProfile(button,selected,correct){
+
+  const buttons =
+    button.parentElement.querySelectorAll("button");
+
+  buttons.forEach(btn=>{
+    btn.disabled=true;
+  });
+
+  if(selected === correct){
+    button.classList.add("correct");
+  }else{
+    button.classList.add("wrong");
+    buttons[correct].classList.add("correct");
+  }
+}
+
+function showMatch(){
+
+  const heart = document.getElementById("matchHeart");
+
+  heart.style.display="block";
+
+  setTimeout(()=>{
+    heart.style.display="none";
+  },1200);
+}
+
+function nextProfile(){
+
+  if(currentProfile < profiles.length - 1){
+
+    currentProfile++;
+
+    renderProfile();
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  }else{
+
+    goTo("grammar",6);
+
+  }
+}
+
+renderProfile();
+
+
+/* =========================================
+   PRACTICE
+========================================= */
+
+function normalizeAnswer(text){
+
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/[¿?¡!.,]/g,"")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function checkAnswer(inputId,correct,feedbackId){
+
+  const input =
+    document.getElementById(inputId);
+
+  const feedback =
+    document.getElementById(feedbackId);
+
+  const userAnswer =
+    normalizeAnswer(input.value);
+
+  const correctAnswer =
+    normalizeAnswer(correct);
+
+  feedback.classList.add("show");
+
+  if(userAnswer === correctAnswer){
+
+    feedback.className =
+      "exercise-feedback show good";
+
+    feedback.textContent =
+      "✓ ¡Perfecto!";
+
+  }else{
+
+    feedback.className =
+      "exercise-feedback show bad";
+
+    feedback.innerHTML =
+      `✗ Casi. La respuesta correcta es:
+      <strong>${correct}</strong>.`;
+
+  }
+}
+
+
+/* =========================================
+   TINDER PROFILE BUILDER
+========================================= */
+
+let selectedSex = "";
+let selectedSeek = "";
+
+function selectChoice(type,value){
+
+  if(type === "sex"){
+
+    selectedSex=value;
+
+    document.getElementById("sexMale")
+      .classList.remove("selected");
+
+    document.getElementById("sexFemale")
+      .classList.remove("selected");
+
+    if(value === "male"){
+      document.getElementById("sexMale")
+        .classList.add("selected");
+    }
+
+    if(value === "female"){
+      document.getElementById("sexFemale")
+        .classList.add("selected");
+    }
+
+  }
+
+
+  if(type === "seek"){
+
+    selectedSeek=value;
+
+    document.getElementById("seekMale")
+      .classList.remove("selected");
+
+    document.getElementById("seekFemale")
+      .classList.remove("selected");
+
+    document.getElementById("seekBoth")
+      .classList.remove("selected");
+
+    if(value === "male"){
+      document.getElementById("seekMale")
+        .classList.add("selected");
+    }
+
+    if(value === "female"){
+      document.getElementById("seekFemale")
+        .classList.add("selected");
+    }
+
+    if(value === "both"){
+      document.getElementById("seekBoth")
+        .classList.add("selected");
+    }
+
+  }
+}
+
+
+function generateProfile(){
+
+  const name =
+    document.getElementById("myName").value.trim();
+
+  const age =
+    document.getElementById("myAge").value.trim();
+
+  const personality =
+    document.getElementById("myPersonality").value.trim();
+
+  const hobbies =
+    document.getElementById("myHobbies").value.trim();
+
+  const dislike =
+    document.getElementById("myDislike").value.trim();
+
+  const looking =
+    document.getElementById("myLooking").value.trim();
+
+
+  if(
+    !selectedSex ||
+    !name ||
+    !age ||
+    !personality ||
+    !hobbies ||
+    !dislike ||
+    !looking ||
+    !selectedSeek
+  ){
+
+    alert("Completa todo tu perfil antes de continuar. 💘");
+
+    return;
+  }
+
+
+  let sexText = "";
+
+  if(selectedSex === "male"){
+    sexText = "♂️ Hombre";
+  }else{
+    sexText = "♀️ Mujer";
+  }
+
+
+  let seekText = "";
+
+  if(selectedSeek === "male"){
+    seekText = "👨 Hombre";
+  }
+
+  if(selectedSeek === "female"){
+    seekText = "👩 Mujer";
+  }
+
+  if(selectedSeek === "both"){
+    seekText = "👨‍❤️‍👩 Los dos";
+  }
+
+
+  document.getElementById("generatedName").textContent =
+    `💘 ${name}, ${age}`;
+
+  document.getElementById("generatedSex").textContent =
+    sexText;
+
+  document.getElementById("generatedPersonality").textContent =
+    personality;
+
+  document.getElementById("generatedHobbies").textContent =
+    hobbies;
+
+  document.getElementById("generatedDislike").textContent =
+    dislike;
+
+  document.getElementById("generatedLooking").textContent =
+    looking;
+
+  document.getElementById("generatedSeek").textContent =
+    seekText;
+
+
+  document
+    .getElementById("generatedProfile")
+    .classList.add("show");
+
+  document
+    .getElementById("generatedProfile")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+}
+
+
+/* =========================================
+   FLASHCARDS
+========================================= */
+
+const flashcards = [
+
+  {
+    en:"Are you free on Saturday night?",
+    es:"¿Estás libre el sábado en la noche?"
+  },
+
+  {
+    en:"There is a very good steak restaurant. Do you want to go?",
+    es:"Hay un restaurante de carne muy bueno. ¿Quieres ir?"
+  },
+
+  {
+    en:"I think you're cool, but I don't like women who smoke.",
+    es:"Creo que eres chévere, pero no me gustan las mujeres que fuman."
+  },
+
+  {
+    en:"I like talking to you.",
+    es:"Me gusta hablar contigo."
+  },
+
+  {
+    en:"Would you like to go out with me?",
+    es:"¿Te gustaría salir conmigo?"
+  }
+
+];
+
+let currentFlashcard = 0;
+
+function updateFlashcard(){
+
+  const card =
+    document.getElementById("flashcard");
+
+  card.classList.remove("flipped");
+
+  document.getElementById("flashEnglish").textContent =
+    flashcards[currentFlashcard].en;
+
+  document.getElementById("flashSpanish").textContent =
+    flashcards[currentFlashcard].es;
+
+  document.getElementById("flashProgress").textContent =
+    `${currentFlashcard + 1} / ${flashcards.length}`;
+}
+
+function flipCard(){
+
+  document
+    .getElementById("flashcard")
+    .classList.toggle("flipped");
+}
+
+function nextFlashcard(){
+
+  if(currentFlashcard < flashcards.length - 1){
+
+    currentFlashcard++;
+
+    updateFlashcard();
+
+  }else{
+
+    currentFlashcard=0;
+
+    updateFlashcard();
+
+  }
+}
+
+function previousFlashcard(){
+
+  if(currentFlashcard > 0){
+
+    currentFlashcard--;
+
+  }else{
+
+    currentFlashcard=flashcards.length-1;
+
+  }
+
+  updateFlashcard();
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+goTo("intro",0);
+
+</script>
+
+</body>
+</html>
