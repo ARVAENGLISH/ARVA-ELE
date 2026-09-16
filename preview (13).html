@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿CASA O APARTAMENTO? | ARVA ELE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --purple:#4f46e5;
+  --pink:#ff2d55;
+  --orange:#ff751f;
+  --cream:#feffd2;
+  --blue:#2563eb;
+  --green:#16a34a;
+  --red:#dc2626;
+  --ink:#202124;
+  --white:#ffffff;
+  --soft:#f7f7fb;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Montserrat,Arial,sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+}
+
+.app{
+  min-height:100vh;
+}
+
+header{
+  background:var(--purple);
+  color:white;
+  padding:18px 5vw;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+
+.brand{
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.brand span{
+  color:#ffd6df;
+}
+
+.progress-wrap{
+  width:min(280px,40vw);
+}
+
+.progress-label{
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:5px;
+  text-align:right;
+}
+
+.progress{
+  height:8px;
+  background:#ffffff40;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.bar{
+  height:100%;
+  background:white;
+  width:0;
+  transition:.3s;
+}
+
+main{
+  max-width:1180px;
+  margin:auto;
+  padding:34px 5vw 80px;
+}
+
+.slide{
+  display:none;
+  animation:fade .25s ease;
+}
+
+.slide.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.kicker{
+  font-size:12px;
+  font-weight:800;
+  color:var(--orange);
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+h1{
+  font-size:clamp(34px,6vw,72px);
+  line-height:1;
+  margin:10px 0 18px;
+}
+
+h2{
+  font-size:clamp(27px,4vw,44px);
+  margin:8px 0 20px;
+  color:var(--purple);
+}
+
+h3{
+  margin-top:0;
+}
+
+.subtitle{
+  font-size:18px;
+  line-height:1.7;
+  max-width:850px;
+}
+
+.card{
+  background:white;
+  border-radius:24px;
+  padding:25px;
+  box-shadow:0 8px 30px #00000010;
+  margin:18px 0;
+}
+
+.goal{
+  border-left:7px solid var(--orange);
+}
+
+.question{
+  font-size:clamp(24px,4vw,40px);
+  font-weight:700;
+  line-height:1.35;
+}
+
+.options{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+}
+
+button{
+  font-family:inherit;
+  border:0;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.option,
+.word,
+.choice,
+.reorder-word{
+  background:white;
+  border:2px solid #e6e6ef;
+  border-radius:15px;
+  padding:14px 16px;
+  font-size:15px;
+  transition:.15s;
+}
+
+.option:hover,
+.word:hover,
+.choice:hover,
+.reorder-word:hover{
+  transform:translateY(-2px);
+  border-color:var(--purple);
+}
+
+.option.selected,
+.choice.selected{
+  border-color:var(--purple);
+  background:#f0efff;
+}
+
+.feedback{
+  margin-top:15px;
+  padding:14px;
+  border-radius:14px;
+  font-weight:600;
+  display:none;
+}
+
+.feedback.show{
+  display:block;
+}
+
+.correct{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.wrong{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.nav{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:28px;
+}
+
+.primary,
+.secondary{
+  padding:13px 22px;
+  border-radius:14px;
+}
+
+.primary{
+  background:var(--purple);
+  color:white;
+}
+
+.secondary{
+  background:white;
+  color:var(--purple);
+  border:2px solid var(--purple);
+}
+
+.primary:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+}
+
+.vocab-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:13px;
+}
+
+.word{
+  position:relative;
+  text-align:left;
+  min-height:74px;
+}
+
+.word.fem{
+  border-left:6px solid var(--pink);
+}
+
+.word.mas{
+  border-left:6px solid var(--blue);
+}
+
+.word small{
+  display:block;
+  color:#777;
+  margin-top:7px;
+}
+
+.translation{
+  display:none;
+  color:var(--orange);
+  font-weight:800;
+}
+
+.word.active .translation{
+  display:inline;
+}
+
+.word.active small{
+  display:none;
+}
+
+.speaker{
+  float:right;
+  background:#f1f1ff;
+  border-radius:50%;
+  padding:6px;
+}
+
+.dialogue{
+  line-height:1.8;
+  font-size:16px;
+}
+
+.dialogue p{
+  margin:9px 0;
+}
+
+.orange{
+  color:var(--orange);
+  font-weight:800;
+  border-bottom:2px dotted var(--orange);
+  cursor:help;
+}
+
+.gustar{
+  color:var(--blue);
+  font-weight:800;
+}
+
+.tip{
+  position:relative;
+}
+
+.tip:hover:after{
+  content:attr(data-en);
+  position:absolute;
+  bottom:110%;
+  left:0;
+  background:var(--ink);
+  color:white;
+  padding:7px 10px;
+  border-radius:8px;
+  font-size:11px;
+  white-space:nowrap;
+  z-index:5;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.table th,
+.table td{
+  padding:12px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+}
+
+.table th{
+  color:var(--purple);
+}
+
+.formula{
+  background:#f0efff;
+  border-radius:18px;
+  padding:18px;
+  font-weight:800;
+  text-align:center;
+  margin:14px 0;
+}
+
+.gusta{
+  color:var(--orange);
+}
+
+.pron{
+  color:var(--blue);
+}
+
+.mcq{
+  display:none;
+}
+
+.mcq.active{
+  display:block;
+}
+
+.exercise-count{
+  font-size:12px;
+  font-weight:800;
+  color:#777;
+}
+
+.reorder-area{
+  min-height:70px;
+  border:2px dashed #c9c9d8;
+  border-radius:16px;
+  padding:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  background:#fafaff;
+}
+
+.bank{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:15px 0;
+}
+
+.reorder-word.used{
+  opacity:.3;
+  pointer-events:none;
+}
+
+.challenge-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.prompt{
+  font-weight:700;
+  margin:14px 0;
+}
+
+textarea{
+  width:100%;
+  min-height:100px;
+  border:2px solid #ddd;
+  border-radius:15px;
+  padding:15px;
+  font:inherit;
+  resize:vertical;
+}
+
+.finish{
+  text-align:center;
+  padding:30px;
+}
+
+.circle{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  border:12px solid var(--purple);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:20px auto;
+  font-size:35px;
+  font-weight:800;
+}
+
+@media(max-width:700px){
+
+  .challenge-grid{
+    grid-template-columns:1fr;
+  }
+
+  header{
+    padding:15px 4vw;
+  }
+
+  main{
+    padding:25px 4vw;
+  }
+
+  .nav{
+    position:sticky;
+    bottom:10px;
+    background:#feffd2e8;
+    padding:10px 0;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+
+<div class="brand">
+ARVA <span>ELE</span>
+</div>
+
+<div class="progress-wrap">
+<div class="progress-label" id="progressLabel">1 / 10</div>
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+</div>
+
+</header>
+
+<main>
+
+<!-- ===================================================== -->
+<!-- 1. TITLE -->
+<!-- ===================================================== -->
+
+<section class="slide active">
+
+<div class="kicker">
+A1 · Español
+</div>
+
+<h1>
+¿CASA O<br>
+APARTAMENTO? 🏠
+</h1>
+
+<div class="card goal">
+
+<h3>🎯 Goal</h3>
+
+<p class="subtitle">
+Talk about Colombian house culture, describe my own house,
+and talk about what I like and don’t like about houses.
+Practice the verb <i>gustar</i> in affirmative, negative,
+and question forms (+ / − / ?), using
+<i>me, te, le, nos</i>, and <i>les</i>.
+</p>
+
+</div>
+
+<div class="nav">
+
+<span></span>
+
+<button class="primary" onclick="next()">
+Empezar →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 2. CONTEXTO -->
+<!-- ===================================================== -->
+
+<section class="slide">
+
+<div class="kicker">
+01 · Contexto
+</div>
+
+<h2>
+Primero, hablemos 💬
+</h2>
+
+<div class="card">
+
+<div class="question">
+¿Prefieres vivir en una casa o en un apartamento?
+</div>
+
+<p class="subtitle">
+💡 ¿Por qué? ¿Qué te gusta? ¿Qué no te gusta?
+</p>
+
+</div>
+
+<div class="nav">
+
+<button class="secondary" onclick="prev()">
+← Atrás
+</button>
+
+<button class="primary" onclick="next()">
+Siguiente →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 3. VOCABULARIO -->
+<!-- ===================================================== -->
+
+<section class="slide">
+
+<div class="kicker">
+02 · Vocabulary
+</div>
+
+<h2>
+La casa colombiana 🏠
+</h2>
+
+<p>
+Haz clic en una palabra para ver su significado y 🔊 escucharla.
+</p>
+
+<div class="vocab-grid" id="vocab"></div>
+
+<div class="card">
+
+<b>🎨 Recuerda:</b>
+
+<span style="color:#ff2d55;font-weight:800">
+rosa = femenino
+</span>
+
+·
+
+<span style="color:#2563eb;font-weight:800">
+azul = masculino
+</span>
+
+</div>
+
+<div class="nav">
+
+<button class="secondary" onclick="prev()">
+← Atrás
+</button>
+
+<button class="primary" onclick="next()">
+Vocabulary Check →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 4. VOCAB CHECK -->
+<!-- ===================================================== -->
+
+<section class="slide">
+
+<div class="kicker">
+03 · Vocabulary Check
+</div>
+
+<h2>
+¿Entiendes el vocabulario?
+</h2>
+
+<div id="vocabQuiz"></div>
+
+<div class="nav">
+
+<button class="secondary" onclick="prev()">
+← Atrás
+</button>
+
+<button id="vocabNext" class="primary" onclick="next()" disabled>
+Siguiente →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 5. LOOK -->
+<!-- ===================================================== -->
+
+<section class="slide">
+
+<div class="kicker">
+04 · Look
+</div>
+
+<h2>
+👀 Mira y descubre
+</h2>
+
+<div class="card dialogue">
+
+<p>
+👩 <b>Ana:</b>
+Hola, ¿cómo vas?
+</p>
+
+<p>
+👩‍🦱 <b>Laura:</b>
+Bien, todo bien. Un poco
+<span class="orange tip" data-en="stressed">
+estresada
+</span>,
+pero bien.
+</p>
+
+<p>
+👩 <b>Ana:</b>
+¿Por qué?
+</p>
+
+<p>
+👩‍🦱 <b>Laura:</b>
+Mi
+<span class="orange tip" data-en="contract">
+contrato
+</span>
+en esta casa
+<span class="orange tip" data-en="ends">
+termina
+</span>
+el viernes y necesito buscar otro
+<span class="orange tip" data-en="place">
+lugar
+</span>.
+</p>
+
+<p>
+👩 <b>Ana:</b>
+Ahhh, ¿y qué buscas?
+¿Casa, apartamento o habitación con <i>roomies</i>?
+</p>
+
+<p>
+👩‍🦱 <b>Laura:</b>
+Prefiero una casa, pero el
+<span class="orange tip" data-en="rent">
+alquiler
+</span>
+es muy
+<span class="orange tip" data-en="expensive">
+caro
+</span>,
+entonces creo que un apartamento está bien.
+</p>
+
+<p>
+👩 <b>Ana:</b>
+Ok. ¿<span class="gustar">Te gustan</span>
+los apartamentos en
+<span class="orange tip" data-en="building">
+edificio
+</span>
+o en unidad?
+</p>
+
+<p>
+👩‍🦱 <b>Laura:</b>
+<span class="gustar">Me gusta</span>
+más vivir en una unidad porque tengo piscina
+y parqueadero privado.
+</p>
+
+<p>
+👩 <b>Ana:</b>
+En este momento, ¿tu casa tiene garaje para tu carro?
+</p>
+
+<p>
+👩‍🦱 <b>Laura:</b>
+Sí, tiene garaje.
+</p>
+
+<p>
+👩 <b>Ana:</b>
+Bueno, ¿y
+<span class="gustar">te gustan</span>
+los apartamentos en
+<span class="orange tip" data-en="high floors">
+pisos altos
+</span>
+o
+<span class="orange tip" data-en="low floors">
+bajos
+</span>?
+</p>
+
+<p>
+👩‍🦱 <b>Laura:</b>
+No
+<span class="gustar">me gustan</span>
+los pisos altos.
+Prefiero el piso 4 o máximo 5.
+</p>
+
+<p>
+👩 <b>Ana:</b>
+Creo que te puedo ayudar con un apartamento,
+pero hay un problema.
+</p>
+
+<p>
+👩‍🦱 <b>Laura:</b>
+¿Cuál es el problema?
+</p>
+
+<p>
+👩 <b>Ana:</b>
+En este apartamento no aceptan mascotas.
+</p>
+
+<p>
+👩‍🦱 <b>Laura:</b>
+¡Ahhh, no! Es imposible.
+Yo tengo un perro pequeño.
+</p>
+
+</div>
+
+<div class="card">
+
+<b>🔎 Look:</b>
+
+Las palabras
+<span style="color:var(--orange)">
+naranjas
+</span>
+son vocabulario nuevo.
+
+Las expresiones
+<span style="color:var(--blue)">
+azules
+</span>
+son ejemplos con <i>gustar</i>.
+
+Pasa el mouse por el vocabulario naranja
+para ver la traducción.
+
+</div>
+
+<div class="nav">
+
+<button class="secondary" onclick="prev()">
+← Atrás
+</button>
+
+<button class="primary" onclick="next()">
+Entender →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 6. UNDERSTAND -->
+<!-- ===================================================== -->
+
+<section class="slide">
+
+<div class="kicker">
+05 · Understand
+</div>
+
+<h2>
+🧠 ¿Qué entendiste?
+</h2>
+
+<div id="understandQuiz"></div>
+
+<div class="nav">
+
+<button class="secondary" onclick="prev()">
+← Atrás
+</button>
+
+<button id="underNext" class="primary" onclick="next()" disabled>
+Siguiente →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 7. GRAMMAR -->
+<!-- ===================================================== -->
+
+<section class="slide">
+
+<div class="kicker">
+06 · Grammar
+</div>
+
+<h2>
+ME / TE / LE / NOS / LES + GUSTA
+</h2>
+
+
+<div class="card">
+
+<h3>
+1. Primero: ¿quién?
+</h3>
+
+<table class="table">
+
+<tr>
+<th>Persona</th>
+<th>Pronombre</th>
+</tr>
+
+<tr>
+<td>Yo</td>
+<td class="pron"><b>ME</b></td>
+</tr>
+
+<tr>
+<td>Tú</td>
+<td class="pron"><b>TE</b></td>
+</tr>
+
+<tr>
+<td>Él / Ella</td>
+<td class="pron"><b>LE</b></td>
+</tr>
+
+<tr>
+<td>Nosotros/as</td>
+<td class="pron"><b>NOS</b></td>
+</tr>
+
+<tr>
+<td>Ellos / Ustedes</td>
+<td class="pron"><b>LES</b></td>
+</tr>
+
+</table>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+2. Mira los ejemplos
+</h3>
+
+<p>
+A mí → <b>ME</b>:
+“A mí <b>me gusta</b> la casa.”
+/
+“A mí <b>me gustan</b> los balcones.”
+</p>
+
+<p>
+A ti → <b>TE</b>:
+“A ti <b>te gusta</b> el apartamento.”
+/
+“A ti <b>te gustan</b> las terrazas.”
+</p>
+
+<p>
+A él / A ella → <b>LE</b>:
+“A ella <b>le gusta</b> la unidad.”
+/
+“A él <b>le gusta</b> el garaje.”
+</p>
+
+<p>
+A nosotros → <b>NOS</b>:
+“A nosotros <b>nos gusta</b> la casa.”
+/
+“A nosotros <b>nos gustan</b> los patios.”
+</p>
+
+<p>
+A ellos / A ustedes → <b>LES</b>:
+“A ellos <b>les gusta</b> la piscina.”
+/
+“A ustedes <b>les gustan</b> los apartamentos.”
+</p>
+
+</div>
+
+
+<div class="formula">
+
+A + PERSONA → PRONOMBRE →
+<span class="gusta">
+GUSTA / GUSTAN
+</span>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+3. GUSTA vs GUSTAN
+</h3>
+
+<p>
+<b>GUSTA</b> = una cosa o una actividad:
+<br>
+<b>Me gusta la casa.</b>
+<br>
+<b>Me gusta vivir en una unidad.</b>
+</p>
+
+<p>
+<b>GUSTAN</b> = cosas en plural:
+<br>
+<b>Me gustan los apartamentos.</b>
+<br>
+<b>Me gustan los balcones.</b>
+</p>
+
+<hr>
+
+<p>
+<b>Negativo:</b>
+No me gusta el apartamento.
+/
+No me gustan los pisos altos.
+</p>
+
+<p>
+<b>Pregunta:</b>
+¿Te gusta la casa?
+/
+¿Te gustan los apartamentos?
+</p>
+
+</div>
+
+
+<div class="nav">
+
+<button class="secondary" onclick="prev()">
+← Atrás
+</button>
+
+<button class="primary" onclick="next()">
+Practice →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 8. PRACTICE -->
+<!-- ===================================================== -->
+
+<section class="slide">
+
+<div class="kicker">
+07 · Practice
+</div>
+
+<h2>
+✏️ Completa la frase
+</h2>
+
+<div class="exercise-count" id="practiceCount"></div>
+
+<div id="practiceQuiz"></div>
+
+<div class="nav">
+
+<button class="secondary" onclick="prev()">
+← Atrás
+</button>
+
+<button id="practiceNext"
+class="primary"
+onclick="nextPractice()"
+disabled>
+Siguiente →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 9. ORGANIZE -->
+<!-- ===================================================== -->
+
+<section class="slide">
+
+<div class="kicker">
+08 · Organize
+</div>
+
+<h2>
+🔀 Organiza la pregunta
+</h2>
+
+<p>
+Haz clic en las palabras en el orden correcto.
+</p>
+
+<div id="reorder"></div>
+
+<div class="nav">
+
+<button class="secondary" onclick="prev()">
+← Atrás
+</button>
+
+<button class="primary" onclick="next()">
+Your Turn →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 10. YOUR TURN -->
+<!-- ===================================================== -->
+
+<section class="slide">
+
+<div class="kicker">
+09 · Your Turn
+</div>
+
+<h2>
+🗣️ Mi casa
+</h2>
+
+<div class="challenge-grid">
+
+
+<div class="card">
+
+<h3>
+Parte 1 · Completa
+</h3>
+
+<p class="prompt">
+Vivo en una...
+</p>
+
+<div class="options" id="homeType">
+
+<button class="choice" onclick="pick(this)">
+casa
+</button>
+
+<button class="choice" onclick="pick(this)">
+apartamento
+</button>
+
+<button class="choice" onclick="pick(this)">
+unidad
+</button>
+
+</div>
+
+
+<p class="prompt">
+Mi casa tiene...
+</p>
+
+<textarea placeholder="Escribe 1–2 cosas."></textarea>
+
+
+<p class="prompt">
+Me gusta...
+</p>
+
+<textarea placeholder="Escribe algo que te gusta."></textarea>
+
+
+<p class="prompt">
+No me gusta...
+</p>
+
+<textarea placeholder="Escribe algo que no te gusta."></textarea>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Parte 2 · Habla 💬
+</h3>
+
+<p>
+Responde oralmente:
+</p>
+
+<ul>
+
+<li>
+¿Te gusta vivir en una casa o en un apartamento?
+</li>
+
+<li>
+¿Qué te gusta de tu casa?
+</li>
+
+<li>
+¿Qué no te gusta?
+</li>
+
+<li>
+¿Te gustan los balcones?
+</li>
+
+<li>
+¿Te gustan las casas con jardín?
+</li>
+
+<li>
+¿Te gusta vivir en una unidad?
+</li>
+
+<li>
+¿A tu familia le gusta tu casa?
+</li>
+
+</ul>
+
+
+<h3>
+🎯 Final Challenge
+</h3>
+
+<p>
+Describe tu casa en <b>5 frases</b>.
+Usa <b>me gusta, no me gusta,
+le gusta</b> o <b>les gusta</b>.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="nav">
+
+<button class="secondary" onclick="prev()">
+← Atrás
+</button>
+
+<button class="primary" onclick="next()">
+Finalizar 🎉
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- 11. FINAL -->
+<!-- ===================================================== -->
+
+<section class="slide">
+
+<div class="finish">
+
+<div class="kicker">
+ARVA ELE · A1
+</div>
+
+<h2>
+¡Excelente trabajo! 🎉
+</h2>
+
+<div class="circle">
+100%
+</div>
+
+<p class="subtitle">
+
+Ahora puedes hablar de casas y apartamentos
+y usar
+
+<b>
+me, te, le, nos, les + gusta/gustan
+</b>.
+
+</p>
+
+<div style="font-size:40px">
+🏠 🏡 🏢 🎉
+</div>
+
+<br>
+
+<button class="primary" onclick="location.reload()">
+↻ Empezar de nuevo
+</button>
+
+</div>
+
+</section>
+
+</main>
+</div>
+
+
+<script>
+
+/* =====================================================
+VOCABULARY
+===================================================== */
+
+const vocab = [
+
+["la casa","house","fem"],
+
+["el apartamento","apartment","mas"],
+
+["la unidad","gated residential complex","fem"],
+
+["la madera","wood","fem"],
+
+["el techo","roof / ceiling","mas"],
+
+["el balcón","balcony","mas"],
+
+["el jardín","garden","mas"],
+
+["el patio","patio / yard","mas"],
+
+["la terraza","terrace","fem"],
+
+["el garaje","garage","mas"],
+
+["el parqueadero","parking space","mas"],
+
+["el alquiler","rent","mas"]
+
+];
+
+
+const speak = text => {
+
+if("speechSynthesis" in window){
+
+speechSynthesis.cancel();
+
+let u = new SpeechSynthesisUtterance(text);
+
+u.lang = "es-CO";
+
+u.rate = .82;
+
+speechSynthesis.speak(u);
+
+}
+
+};
+
+
+document.getElementById("vocab").innerHTML =
+
+vocab.map((v,i)=>`
+
+<button class="word ${v[2]}"
+onclick="this.classList.toggle('active');speak('${v[0]}')">
+
+<b>${v[0]}</b>
+
+<span class="speaker">
+🔊
+</span>
+
+<small>
+Click to translate
+</small>
+
+<span class="translation">
+→ ${v[1]}
+</span>
+
+</button>
+
+`).join("");
+
+
+/* =====================================================
+SLIDES
+===================================================== */
+
+let slide = 0;
+
+const slides = [
+  ...document.querySelectorAll(".slide")
+];
+
+
+function show(n){
+
+slide = Math.max(
+0,
+Math.min(slides.length - 1,n)
+);
+
+slides.forEach((s,i)=>
+s.classList.toggle("active",i===slide)
+);
+
+document.getElementById("progressLabel").textContent =
+`${slide+1} / ${slides.length}`;
+
+document.getElementById("bar").style.width =
+((slide)/(slides.length-1)*100)+"%";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+function next(){
+show(slide+1);
+}
+
+
+function prev(){
+show(slide-1);
+}
+
+
+/* =====================================================
+VOCAB QUIZ
+===================================================== */
+
+const vocabQs = [
+
+[
+"La puerta _______________ no es automática en Colombia.",
+[
+"de el garaje",
+"Del patio",
+"del garaje",
+"del techo"
+],
+2
+],
+
+[
+"En una casa colombiana, muchas personas disfrutan sentarse en __________.",
+[
+"el techo",
+"el patio",
+"el garaje",
+"el apartamento"
+],
+1
+],
+
+[
+"Mi apartamento tiene __________ muy bonito.",
+[
+"un balcón",
+"una techo",
+"un madera",
+"una garaje"
+],
+0
+],
+
+[
+"En una casa con clima caliente, me gusta estar en __________.",
+[
+"el parqueadero",
+"la terraza",
+"el techo",
+"la madera"
+],
+1
+],
+
+[
+"El piso de las casas en Estados Unidos normalmente es de __________.",
+[
+"Concreto",
+"Cemento",
+"Madera",
+"Cerámica"
+],
+2
+]
+
+];
+
+
+function makeQuiz(data,id,nextId){
+
+const box = document.getElementById(id);
+
+let html = "";
+
+data.forEach((q,i)=>{
+
+html += `
+
+<div class="card mcq ${i===0?"active":""}"
+data-q="${i}">
+
+<div class="exercise-count">
+Pregunta ${i+1} de ${data.length}
+</div>
+
+<h3>
+${q[0]}
+</h3>
+
+<div class="options">
+
+${q[1].map((o,j)=>`
+
+<button
+class="option"
+onclick="answer(
+this,
+${j},
+${q[2]},
+'${id}',
+${i},
+${data.length},
+'${nextId}'
+)">
+
+${String.fromCharCode(65+j)}. ${o}
+
+</button>
+
+`).join("")}
+
+</div>
+
+<div class="feedback"></div>
+
+</div>
+
+`;
+
+});
+
+box.innerHTML = html;
+
+}
+
+
+function answer(
+btn,
+chosen,
+correct,
+id,
+i,
+total,
+nextId
+){
+
+const card = btn.closest(".mcq");
+
+const buttons =
+card.querySelectorAll(".option");
+
+const fb =
+card.querySelector(".feedback");
+
+buttons.forEach(b=>b.disabled=true);
+
+
+if(chosen === correct){
+
+btn.classList.add("selected");
+
+fb.className =
+"feedback show correct";
+
+fb.textContent =
+"✅ ¡Correcto!";
+
+}
+
+else{
+
+fb.className =
+"feedback show wrong";
+
+fb.innerHTML =
+"❌ Casi. La respuesta correcta es <b>"+
+card.querySelectorAll(".option")[correct].textContent+
+"</b>.";
+
+}
+
+
+if(i < total-1){
+
+setTimeout(()=>{
+
+card.classList.remove("active");
+
+card.nextElementSibling.classList.add("active");
+
+},500);
+
+}
+
+else{
+
+document.getElementById(nextId).disabled=false;
+
+}
+
+}
+
+
+makeQuiz(
+vocabQs,
+"vocabQuiz",
+"vocabNext"
+);
+
+
+/* =====================================================
+UNDERSTAND
+===================================================== */
+
+const underQs = [
+
+[
+"¿Cuándo termina el contrato?",
+[
+"El lunes",
+"El viernes",
+"El domingo"
+],
+1
+],
+
+[
+"¿Qué prefiere Laura?",
+[
+"Una casa",
+"Una habitación",
+"Un hotel"
+],
+0
+],
+
+[
+"¿Qué tiene la unidad?",
+[
+"Piscina y parqueadero",
+"Jardín y terraza",
+"Garaje y balcón"
+],
+0
+],
+
+[
+"¿Qué pisos prefiere Laura?",
+[
+"1 y 2",
+"4 o 5",
+"10 y 11"
+],
+1
+],
+
+[
+"¿Laura tiene una mascota?",
+[
+"Sí, tiene un perro pequeño.",
+"Sí, tiene un gato.",
+"No, no tiene mascotas."
+],
+0
+]
+
+];
+
+
+makeQuiz(
+underQs,
+"understandQuiz",
+"underNext"
+);
+
+
+/* =====================================================
+PRACTICE
+===================================================== */
+
+const practice = [
+
+[
+"Cuando estoy en un hotel, __________ la habitación con balcón.",
+[
+"me gusta",
+"te gusta",
+"le gusta"
+],
+0
+],
+
+[
+"A Scotty __________ comprar casas viejas y remodelarlas.",
+[
+"me gusta",
+"le gusta",
+"les gusta"
+],
+1
+],
+
+[
+"A mi madre __________ las plantas. Ella quiere una casa con jardín.",
+[
+"me gustan",
+"le gustan",
+"les gustan"
+],
+1
+],
+
+[
+"A nosotros __________ vivir en una unidad porque tiene piscina y parqueadero.",
+[
+"nos gusta",
+"les gusta",
+"te gusta"
+],
+0
+],
+
+[
+"A mis amigos __________ visitar mi casa porque tenemos una terraza grande.",
+[
+"les gusta",
+"le gusta",
+"nos gusta"
+],
+0
+],
+
+[
+"¿A ti __________ vivir en un apartamento o en una casa?",
+[
+"me gusta",
+"te gusta",
+"le gusta"
+],
+1
+],
+
+[
+"A Laura no __________ los pisos altos. Prefiere vivir en el cuarto piso.",
+[
+"le gustan",
+"les gustan",
+"te gustan"
+],
+0
+],
+
+[
+"A mí no __________ vivir en un edificio sin parqueadero.",
+[
+"me gusta",
+"me gustan",
+"nos gusta"
+],
+0
+],
+
+[
+"A mis padres __________ tener un jardín grande, pero el alquiler de esas casas es muy caro.",
+[
+"les gusta",
+"le gusta",
+"nos gusta"
+],
+0
+],
+
+[
+"¿A ustedes __________ las casas con balcón?",
+[
+"les gustan",
+"les gusta",
+"nos gustan"
+],
+0
+]
+
+];
+
+
+let pi = 0;
+
+
+function renderPractice(){
+
+document.getElementById("practiceCount").textContent =
+`Pregunta ${pi+1} de ${practice.length}`;
+
+let q = practice[pi];
+
+document.getElementById("practiceQuiz").innerHTML = `
+
+<div class="card">
+
+<h3>
+${q[0]}
+</h3>
+
+<div class="options">
+
+${q[1].map((o,j)=>`
+
+<button
+class="option"
+onclick="practiceAnswer(this,${j})">
+
+${String.fromCharCode(65+j)}. ${o}
+
+</button>
+
+`).join("")}
+
+</div>
+
+<div id="pfb" class="feedback"></div>
+
+</div>
+
+`;
+
+document.getElementById("practiceNext").disabled=true;
+
+}
+
+
+function practiceAnswer(btn,j){
+
+let q = practice[pi];
+
+let fb = document.getElementById("pfb");
+
+document
+.querySelectorAll("#practiceQuiz .option")
+.forEach(b=>b.disabled=true);
+
+
+if(j === q[2]){
+
+fb.className =
+"feedback show correct";
+
+fb.textContent =
+"✅ ¡Perfecto!";
+
+}
+
+else{
+
+fb.className =
+"feedback show wrong";
+
+fb.innerHTML =
+"❌ La respuesta correcta es <b>"+
+q[1][q[2]]+
+"</b>.";
+
+}
+
+document.getElementById("practiceNext").disabled=false;
+
+}
+
+
+function nextPractice(){
+
+if(pi < practice.length-1){
+
+pi++;
+
+renderPractice();
+
+}
+
+else{
+
+next();
+
+}
+
+}
+
+
+renderPractice();
+
+
+/* =====================================================
+REORDER
+===================================================== */
+
+const reorderQs = [
+
+[
+"te",
+"¿",
+"gustan",
+"los apartamentos",
+"?"
+],
+
+[
+"¿",
+"te",
+"gusta",
+"vivir en una casa",
+"?"
+],
+
+[
+"¿",
+"a Laura",
+"le",
+"gusta",
+"la unidad",
+"?"
+],
+
+[
+"¿",
+"te",
+"gustan",
+"los pisos altos",
+"?"
+],
+
+[
+"¿",
+"a tu madre",
+"le",
+"gustan",
+"las plantas",
+"?"
+],
+
+[
+"¿",
+"a ustedes",
+"les",
+"gusta",
+"el apartamento",
+"?"
+],
+
+[
+"¿",
+"a tus amigos",
+"les",
+"gustan",
+"las casas grandes",
+"?"
+],
+
+[
+"¿",
+"a ti",
+"te",
+"gusta",
+"el balcón",
+"?"
+]
+
+];
+
+
+let ri = 0;
+
+
+function renderReorder(){
+
+let q = reorderQs[ri];
+
+let container =
+document.getElementById("reorder");
+
+let shuffled = [...q]
+.sort(()=>Math.random()-.5);
+
+container.innerHTML = `
+
+<div class="card">
+
+<div class="exercise-count">
+Pregunta ${ri+1} de ${reorderQs.length}
+</div>
+
+<div
+class="reorder-area"
+id="answerArea">
+</div>
+
+<div class="bank">
+
+${shuffled.map((w,i)=>`
+
+<button
+class="reorder-word"
+onclick="addWord(this,'${w.replace(/'/g,"\\'")}')">
+
+${w}
+
+</button>
+
+`).join("")}
+
+</div>
+
+<div
+id="rfb"
+class="feedback">
+</div>
+
+<button
+class="primary"
+onclick="checkReorder()">
+
+Comprobar
+
+</button>
+
+</div>
+
+`;
+
+}
+
+
+function addWord(btn,w){
+
+let area =
+document.getElementById("answerArea");
+
+let b =
+document.createElement("button");
+
+b.className =
+"reorder-word";
+
+b.textContent = w;
+
+b.onclick = ()=>{
+
+btn.classList.remove("used");
+
+b.remove();
+
+};
+
+area.appendChild(b);
+
+btn.classList.add("used");
+
+}
+
+
+function checkReorder(){
+
+let got = [
+...document.querySelectorAll(
+"#answerArea .reorder-word"
+)
+].map(x=>x.textContent);
+
+let target = reorderQs[ri];
+
+let fb =
+document.getElementById("rfb");
+
+
+if(got.join("|") === target.join("|")){
+
+fb.className =
+"feedback show correct";
+
+fb.textContent =
+"✅ ¡Perfecto!";
+
+setTimeout(()=>{
+
+if(ri < reorderQs.length-1){
+
+ri++;
+
+renderReorder();
+
+}
+
+else{
+
+fb.textContent =
+"🎉 ¡Completaste todas las preguntas!";
+
+}
+
+},600);
+
+}
+
+else{
+
+fb.className =
+"feedback show wrong";
+
+fb.innerHTML =
+"❌ Revisa el orden.<br><br>"+
+"La pregunta correcta es:<br>"+
+"<b>"+target.join(" ").replace("¿ ","¿")+"</b>";
+
+}
+
+}
+
+
+renderReorder();
+
+
+/* =====================================================
+YOUR TURN
+===================================================== */
+
+function pick(el){
+
+document
+.querySelectorAll("#homeType .choice")
+.forEach(x=>
+x.classList.remove("selected")
+);
+
+el.classList.add("selected");
+
+}
+
+
+/* =====================================================
+START
+===================================================== */
+
+show(0);
+
+</script>
+
+</body>
+</html>
