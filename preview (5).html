@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi primer viaje internacional | ARVA Español</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --purple: #4f46e5;
+  --pink: #ff2d55;
+  --orange: #ff751f;
+  --cream: #feffd2;
+  --white: #ffffff;
+  --black: #171717;
+  --green: #16834a;
+  --red: #c62828;
+  --gray: #f3f3f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: #f5f5f7;
+  color: var(--black);
+}
+
+.app {
+  max-width: 1100px;
+  min-height: 100vh;
+  margin: auto;
+  background: var(--white);
+}
+
+header {
+  background: var(--orange);
+  color: white;
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.progress {
+  background: rgba(255,255,255,.2);
+  padding: 9px 15px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+main {
+  padding: 45px 55px 70px;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+.eyebrow {
+  color: var(--purple);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 44px;
+  line-height: 1.05;
+  margin: 0 0 18px;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 31px;
+  margin-top: 0;
+}
+
+h3 {
+  margin-top: 25px;
+}
+
+p,
+li {
+  line-height: 1.75;
+}
+
+.lead {
+  font-size: 18px;
+}
+
+.card {
+  background: var(--cream);
+  padding: 27px;
+  border-radius: 22px;
+  margin: 25px 0;
+}
+
+.white-card {
+  background: white;
+  border: 1px solid #e7e7ec;
+  border-radius: 20px;
+  padding: 25px;
+  margin: 20px 0;
+  box-shadow: 0 7px 25px rgba(0,0,0,.05);
+}
+
+.tag {
+  display: inline-block;
+  background: white;
+  border-radius: 50px;
+  padding: 8px 13px;
+  margin: 4px;
+  font-weight: 600;
+}
+
+.vocab {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+}
+
+.vocab-item {
+  background: #fafafa;
+  border-radius: 15px;
+  padding: 17px;
+  font-weight: 600;
+}
+
+.look p {
+  font-size: 17px;
+}
+
+/* REGULAR PAST */
+.regular {
+  color: var(--orange);
+  font-weight: 800;
+}
+
+/* IRREGULAR PAST */
+.irregular {
+  color: var(--pink);
+  font-weight: 800;
+}
+
+.question {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: white;
+  border: 2px solid #e4e4e9;
+  border-radius: 12px;
+  padding: 13px 16px;
+  margin: 8px 0;
+  font-family: inherit;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.option:hover {
+  border-color: var(--purple);
+}
+
+.option.correct {
+  background: #e9f8ef;
+  border-color: var(--green);
+}
+
+.option.wrong {
+  background: #fff0f0;
+  border-color: var(--red);
+}
+
+.feedback {
+  min-height: 24px;
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+input.answer {
+  width: min(500px, 100%);
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.order-box {
+  background: var(--gray);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 13px;
+  font-weight: 600;
+}
+
+button.main-btn {
+  border: none;
+  background: var(--purple);
+  color: white;
+  font-family: inherit;
+  font-weight: 700;
+  padding: 13px 21px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 7px 5px 0 0;
+}
+
+button.main-btn:hover {
+  filter: brightness(.95);
+}
+
+button.secondary {
+  background: #eeeeef;
+  color: #222;
+}
+
+button.orange {
+  background: var(--orange);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+th,
+td {
+  padding: 16px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background: #f3f3f5;
+}
+
+@media(max-width:700px) {
+
+  main {
+    padding: 30px 20px;
+  }
+
+  header {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 33px;
+  }
+
+  .vocab {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="logo">ARVA ESPAÑOL</div>
+  <div class="progress" id="progress">1 / 7</div>
+</header>
+
+
+<main>
+
+<!-- ========================= -->
+<!-- 1. INTRO -->
+<!-- ========================= -->
+
+<section class="screen active">
+
+  <div class="eyebrow">ELE · Experiencias</div>
+
+  <h1>MI PRIMER VIAJE INTERNACIONAL</h1>
+
+  <p class="lead">
+    <b>Objetivo:</b> aprender a usar el
+    <b>Pasado Pisado</b> para hablar de una experiencia personal de viaje.
+  </p>
+
+  <div class="card">
+
+    <h3>💬 Para empezar</h3>
+
+    <p class="lead">
+      ¿A dónde y con quién fuiste a tu primer viaje internacional?
+    </p>
+
+    <span class="tag">Fui a…</span>
+    <span class="tag">Fui con…</span>
+
+  </div>
+
+  <div class="nav">
+    <span></span>
+
+    <button class="main-btn" onclick="goTo(2)">
+      Empezar →
+    </button>
+  </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- 2. VOCABULARY -->
+<!-- ========================= -->
+
+<section class="screen">
+
+  <h2>📚 Vocabulary</h2>
+
+  <div class="vocab">
+
+    <div class="vocab-item">🧳 excursión</div>
+    <div class="vocab-item">🌎 turismo</div>
+    <div class="vocab-item">🏘️ pueblo</div>
+    <div class="vocab-item">🏙️ ciudad</div>
+
+    <div class="vocab-item">📍 quedar</div>
+    <div class="vocab-item">✈️ ir</div>
+    <div class="vocab-item">📌 estar</div>
+    <div class="vocab-item">😊 disfrutar</div>
+
+    <div class="vocab-item">💳 pagar</div>
+    <div class="vocab-item">💰 propina</div>
+
+  </div>
+
+  <div class="nav">
+
+    <button class="main-btn secondary" onclick="goTo(1)">
+      ←
+    </button>
+
+    <button class="main-btn" onclick="goTo(3)">
+      Look →
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- 3. LOOK -->
+<!-- ========================= -->
+
+<section class="screen">
+
+<h2>👀 LOOK — CHOQUE CULTURAL</h2>
+
+<div class="white-card look">
+
+<p>
+Mi primer viaje internacional
+<span class="irregular">fue</span>
+a Miami con mis papás en 2005, pero mi primer viaje internacional sola
+<span class="irregular">fue</span>
+en 2018.
+<span class="irregular">Fue</span>
+para las vacaciones de verano de la universidad.
+</p>
+
+<p>
+Por primera vez,
+<span class="regular">viajé</span>
+a Estados Unidos completamente sola, con un idioma que no es el mío,
+una cultura diferente y una moneda diferente.
+<span class="irregular">Estuve</span>
+en Maine, un pequeño pueblo en el norte, durante 3 meses por trabajo.
+</p>
+
+<p>
+<span class="regular">Trabajé</span>
+como <i>camp counselor</i> en un campamento para niñas.
+La experiencia
+<span class="irregular">fue</span>
+muy bonita,
+<span class="regular">aprendí</span>
+un montón y
+<span class="regular">mejoré</span>
+mi inglés.
+También
+<span class="regular">disfruté</span>
+después del trabajo:
+<span class="regular">viajé</span>
+a Nueva York, Boston y Miami.
+</p>
+
+<p>
+Mi choque cultural más fuerte
+<span class="irregular">fue</span>
+la cultura de la propina.
+En Colombia, la propina es voluntaria y normalmente los meseros tienen un salario,
+pero en USA la propina es básicamente obligatoria y a veces es muy cara.
+</p>
+
+<p>
+En uno de los restaurantes no
+<span class="regular">pagué</span>
+propina porque el servicio
+<span class="irregular">fue</span>
+malo y lento, y el mesero se
+<span class="regular">enojó</span>
+muchísimo.
+</p>
+
+<p>
+En general,
+<span class="regular">disfruté</span>
+mi primer viaje internacional sola.
+Mi próximo destino para viajar sola es Argentina.
+</p>
+
+</div>
+
+
+<div class="white-card">
+
+<h3>🔎 Comprensión</h3>
+
+<div class="question">
+1. ¿Qué fue Miami para la persona?
+</div>
+
+<button class="option" onclick="lookAnswer(this,false)">
+A. El primer destino donde viajó sola.
+</button>
+
+<button class="option" onclick="lookAnswer(this,true)">
+B. El primer destino internacional donde viajó con su familia.
+</button>
+
+<button class="option" onclick="lookAnswer(this,false)">
+C. El próximo destino donde va a viajar.
+</button>
+
+
+<div class="question" style="margin-top:25px">
+2. ¿Dónde estuvo durante tres meses?
+</div>
+
+<button class="option" onclick="lookAnswer(this,false)">
+A. En Miami.
+</button>
+
+<button class="option" onclick="lookAnswer(this,false)">
+B. En Nueva York.
+</button>
+
+<button class="option" onclick="lookAnswer(this,true)">
+C. En Maine.
+</button>
+
+
+<div class="question" style="margin-top:25px">
+3. ¿Cuál fue su choque cultural más fuerte?
+</div>
+
+<button class="option" onclick="lookAnswer(this,true)">
+A. La cultura de la propina.
+</button>
+
+<button class="option" onclick="lookAnswer(this,false)">
+B. La comida estadounidense.
+</button>
+
+<button class="option" onclick="lookAnswer(this,false)">
+C. El idioma inglés.
+</button>
+
+
+<h3>🕵️ Descubrimiento</h3>
+
+<div class="question">
+4. Las palabras de colores aparecen principalmente en…
+</div>
+
+<button class="option" onclick="lookAnswer(this,false)">
+A. Presente
+</button>
+
+<button class="option" onclick="lookAnswer(this,true)">
+B. Pasado
+</button>
+
+<button class="option" onclick="lookAnswer(this,false)">
+C. Futuro
+</button>
+
+
+<div class="question" style="margin-top:25px">
+5. ¿Qué tienen en común estas formas:
+<i>viajé, trabajé, disfruté, pagué</i>?
+</div>
+
+<button class="option" onclick="lookAnswer(this,true)">
+A. Hablan de acciones terminadas en el pasado.
+</button>
+
+<button class="option" onclick="lookAnswer(this,false)">
+B. Hablan de acciones que están ocurriendo ahora.
+</button>
+
+<button class="option" onclick="lookAnswer(this,false)">
+C. Hablan de planes futuros.
+</button>
+
+<div id="lookFeedback" class="feedback"></div>
+
+</div>
+
+
+<div class="nav">
+
+<button class="main-btn secondary" onclick="goTo(2)">
+←
+</button>
+
+<button class="main-btn" onclick="goTo(4)">
+Grammar →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- 4. GRAMMAR -->
+<!-- ========================= -->
+
+<section class="screen">
+
+<h2>🧠 PASADO PISADO</h2>
+
+<div class="card">
+
+<p class="lead">
+<b>When do we use it?</b>
+</p>
+
+<p class="lead">
+We use the <b>Pasado Pisado</b> to talk about
+<b>completed actions and experiences in the past.</b>
+</p>
+
+<p>
+Ayer <span class="regular">viajé</span> a Bogotá.
+</p>
+
+<p>
+El año pasado <span class="regular">comí</span>
+en un restaurante nuevo.
+</p>
+
+<p>
+En 2020 <span class="regular">sentí</span>
+mucho miedo.
+</p>
+
+</div>
+
+
+<h3>Verbos regulares — YO</h3>
+
+<table>
+
+<tr>
+<th>VIAJAR</th>
+<th>COMER</th>
+<th>SENTIR</th>
+</tr>
+
+<tr>
+<td>
+Yo viaj<span class="regular">é</span>
+</td>
+
+<td>
+Yo com<span class="regular">í</span>
+</td>
+
+<td>
+Yo sent<span class="regular">í</span>
+</td>
+</tr>
+
+</table>
+
+
+<div class="white-card">
+
+<h3>📌 Patrón</h3>
+
+<p>
+<b>-AR → <span class="regular">-é</span></b>
+→ viaj<span class="regular">é</span>
+</p>
+
+<p>
+<b>-ER → <span class="regular">-í</span></b>
+→ com<span class="regular">í</span>
+</p>
+
+<p>
+<b>-IR → <span class="regular">-í</span></b>
+→ sent<span class="regular">í</span>
+</p>
+
+</div>
+
+
+<h3>Verbos irregulares — YO</h3>
+
+<table>
+
+<tr>
+<th>SER</th>
+<th>ESTAR</th>
+<th>IR</th>
+</tr>
+
+<tr>
+
+<td>
+Yo <span class="irregular">fui</span>
+</td>
+
+<td>
+Yo <span class="irregular">estuve</span>
+</td>
+
+<td>
+Yo <span class="irregular">fui</span>
+</td>
+
+</tr>
+
+</table>
+
+
+<div class="white-card">
+
+<p>
+⚠️ <b>SER</b> e <b>IR</b> tienen la misma forma en YO:
+<span class="irregular">fui</span>.
+</p>
+
+<p>
+Mi primer viaje
+<span class="irregular">fue</span>
+a Miami. → SER
+</p>
+
+<p>
+<span class="irregular">Estuve</span>
+en Maine durante tres meses. → ESTAR
+</p>
+
+<p>
+<span class="irregular">Fui</span>
+a Nueva York después del trabajo. → IR
+</p>
+
+</div>
+
+
+<div class="nav">
+
+<button class="main-btn secondary" onclick="goTo(3)">
+←
+</button>
+
+<button class="main-btn" onclick="goTo(5)">
+Practice →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- 5. PRACTICE -->
+<!-- ========================= -->
+
+<section class="screen">
+
+<h2>✏️ PRACTICE</h2>
+
+<p>
+Completa las actividades. Recuerda:
+<b>solo usamos YO.</b>
+</p>
+
+<div id="practiceContainer"></div>
+
+<div class="nav">
+
+<button class="main-btn secondary" onclick="goTo(4)">
+←
+</button>
+
+<button class="main-btn" onclick="goTo(6)">
+Challenge →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- 6. CHALLENGE -->
+<!-- ========================= -->
+
+<section class="screen">
+
+<h2>🚀 CHALLENGE</h2>
+
+<div class="card">
+
+<h2>
+¿Cómo fue tu viaje a España?
+</h2>
+
+<p class="lead">
+Ahora habla sobre tu experiencia de mudarte sola a España.
+</p>
+
+</div>
+
+
+<div class="white-card">
+
+<h3>Habla sobre:</h3>
+
+<ul>
+
+<li>
+¿Cuándo y por qué fuiste a España?
+</li>
+
+<li>
+¿Dónde estuviste y dónde quedaste?
+</li>
+
+<li>
+¿Cómo fue viajar o mudarte sola?
+</li>
+
+<li>
+¿Qué lugares visitaste?
+</li>
+
+<li>
+¿Qué cosas disfrutaste?
+</li>
+
+<li>
+¿Qué choques culturales experimentaste?
+</li>
+
+<li>
+¿Qué diferencias notaste en la comida,
+los horarios, el transporte, las propinas
+o la forma de relacionarse?
+</li>
+
+<li>
+¿Cómo fue tu experiencia en general?
+</li>
+
+</ul>
+
+
+<p>
+<b>Intenta usar:</b>
+</p>
+
+<p>
+
+<span class="irregular">
+fui · estuve · fue
+</span>
+
+·
+
+<span class="regular">
+viajé · quedé · disfruté · pagué · visité
+</span>
+
+</p>
+
+
+<p>
+🎯 <b>Reto:</b>
+habla durante 1–2 minutos usando el
+Pasado Pisado para hablar de acciones terminadas.
+</p>
+
+</div>
+
+
+<div class="nav">
+
+<button class="main-btn secondary" onclick="goTo(5)">
+←
+</button>
+
+<button class="main-btn orange" onclick="goTo(7)">
+Finalizar →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- 7. END -->
+<!-- ========================= -->
+
+<section class="screen">
+
+<div class="eyebrow">
+ARVA ESPAÑOL
+</div>
+
+<h1>🎉 ¡Perfecto!</h1>
+
+<p class="lead">
+Hoy aprendiste a usar el
+<b>Pasado Pisado</b>
+para hablar de experiencias personales
+terminadas en el pasado.
+</p>
+
+
+<div class="card">
+
+<h3>Tu misión cumplida:</h3>
+
+<p>
+✔ Reconocer el pasado en contexto
+</p>
+
+<p>
+✔ Conjugar verbos regulares con YO
+</p>
+
+<p>
+✔ Usar <b>fui, estuve, fue</b>
+</p>
+
+<p>
+✔ Hablar de una experiencia personal
+</p>
+
+</div>
+
+
+<button class="main-btn" onclick="goTo(1)">
+↻ Empezar de nuevo
+</button>
+
+</section>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function goTo(number) {
+
+  const screens = document.querySelectorAll('.screen');
+
+  screens.forEach((screen, index) => {
+
+    screen.classList.toggle(
+      'active',
+      index === number - 1
+    );
+
+  });
+
+  document.getElementById('progress').textContent =
+    number + ' / 7';
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+  if (number === 5) {
+    createPractice();
+  }
+
+}
+
+
+/* =========================
+   LOOK FEEDBACK
+========================= */
+
+function lookAnswer(button, correct) {
+
+  button.classList.add(
+    correct ? 'correct' : 'wrong'
+  );
+
+  const feedback =
+    document.getElementById('lookFeedback');
+
+  if (correct) {
+
+    feedback.textContent =
+      '✓ ¡Perfecto!';
+
+    feedback.style.color =
+      'var(--green)';
+
+  } else {
+
+    feedback.textContent =
+      '✗ Revisa el texto y vuelve a intentarlo.';
+
+    feedback.style.color =
+      'var(--red)';
+
+  }
+
+}
+
+
+/* =========================
+   PRACTICE DATA
+========================= */
+
+const practiceQuestions = [
+
+  /* MULTIPLE CHOICE */
+
+  {
+    type: 'mc',
+    question: 'Ayer yo ________ a España.',
+    options: [
+      'yo viajo',
+      'yo viajé',
+      'yo viajaste'
+    ],
+    answer: 1,
+    explanation:
+      'Viajé es la forma de YO en pasado de viajar.'
+  },
+
+  {
+    type: 'mc',
+    question: 'En Maine yo ________ durante tres meses.',
+    options: [
+      'yo estuve',
+      'yo estoy',
+      'yo estuviste'
+    ],
+    answer: 0,
+    explanation:
+      'Estuve es la forma irregular de YO del verbo estar.'
+  },
+
+  {
+    type: 'mc',
+    question: 'En el restaurante yo ________ la propina.',
+    options: [
+      'yo pagaste',
+      'yo pago',
+      'yo pagué'
+    ],
+    answer: 2,
+    explanation:
+      'Pagué es la forma de YO en pasado de pagar.'
+  },
+
+  {
+    type: 'mc',
+    question: 'Durante el viaje yo ________ mucho.',
+    options: [
+      'yo disfruté',
+      'yo disfruto',
+      'yo disfrutaste'
+    ],
+    answer: 0,
+    explanation:
+      'Disfruté habla de una acción terminada en el pasado.'
+  },
+
+  {
+    type: 'mc',
+    question: 'Yo ________ a Nueva York después del trabajo.',
+    options: [
+      'yo voy',
+      'yo fui',
+      'yo fuiste'
+    ],
+    answer: 1,
+    explanation:
+      'Fui es la forma irregular de YO de ir.'
+  },
+
+  {
+    type: 'mc',
+    question: 'Yo ________ en un pequeño pueblo.',
+    options: [
+      'yo quedé',
+      'yo quedaste',
+      'yo quedo'
+    ],
+    answer: 0,
+    explanation:
+      'Quedé es la forma de YO en pasado de quedar.'
+  },
+
+
+  /* CONJUGATE */
+
+  {
+    type: 'conjugate',
+    question:
+      'Ayer yo ________ a Nueva York. (viajar)',
+    answer: 'viajé'
+  },
+
+  {
+    type: 'conjugate',
+    question:
+      'En Maine yo ________ durante tres meses. (estar)',
+    answer: 'estuve'
+  },
+
+  {
+    type: 'conjugate',
+    question:
+      'Yo ________ mucho durante el viaje. (disfrutar)',
+    answer: 'disfruté'
+  },
+
+  {
+    type: 'conjugate',
+    question:
+      'Yo ________ la propina. (pagar)',
+    answer: 'pagué'
+  },
+
+  {
+    type: 'conjugate',
+    question:
+      'Yo ________ en un pequeño pueblo. (quedar)',
+    answer: 'quedé'
+  },
+
+  {
+    type: 'conjugate',
+    question:
+      'Yo ________ a Argentina. (ir)',
+    answer: 'fui'
+  },
+
+
+  /* ORGANIZE */
+
+  {
+    type: 'order',
+    words:
+      'viajaste / ¿ / dónde / tú / ?',
+    answer:
+      '¿Dónde viajaste tú?'
+  },
+
+  {
+    type: 'order',
+    words:
+      'fuiste / ¿ / a dónde / tú / ?',
+    answer:
+      '¿A dónde fuiste tú?'
+  },
+
+  {
+    type: 'order',
+    words:
+      'estuviste / ¿ / dónde / tú / ?',
+    answer:
+      '¿Dónde estuviste tú?'
+  },
+
+  {
+    type: 'order',
+    words:
+      'pagaste / ¿ / la propina / tú / ?',
+    answer:
+      '¿Pagaste tú la propina?'
+  }
+
+];
+
+
+/* =========================
+   CREATE PRACTICE
+========================= */
+
+function createPractice() {
+
+  const container =
+    document.getElementById(
+      'practiceContainer'
+    );
+
+  container.innerHTML = '';
+
+  practiceQuestions.forEach(
+    (item, index) => {
+
+      const card =
+        document.createElement('div');
+
+      card.className =
+        'white-card';
+
+      const title =
+        document.createElement('div');
+
+      title.className =
+        'question';
+
+      title.textContent =
+        (index + 1) + '. ' +
+        item.question;
+
+      card.appendChild(title);
+
+
+      /* MULTIPLE CHOICE */
+
+      if (item.type === 'mc') {
+
+        item.options.forEach(
+          (option, optionIndex) => {
+
+            const button =
+              document.createElement('button');
+
+            button.className =
+              'option';
+
+            button.textContent =
+              option;
+
+            button.onclick = function() {
+
+              const buttons =
+                card.querySelectorAll(
+                  '.option'
+                );
+
+              buttons.forEach(
+                b => b.disabled = true
+              );
+
+              const feedback =
+                document.createElement(
+                  'div'
+                );
+
+              feedback.className =
+                'feedback';
+
+              if (
+                optionIndex ===
+                item.answer
+              ) {
+
+                button.classList.add(
+                  'correct'
+                );
+
+                feedback.textContent =
+                  '✓ ¡Perfecto! ' +
+                  item.explanation;
+
+                feedback.style.color =
+                  'var(--green)';
+
+              } else {
+
+                button.classList.add(
+                  'wrong'
+                );
+
+                feedback.textContent =
+                  '✗ Casi. ' +
+                  item.explanation;
+
+                feedback.style.color =
+                  'var(--red)';
+              }
+
+              card.appendChild(
+                feedback
+              );
+
+            };
+
+            card.appendChild(
+              button
+            );
+
+          }
+        );
+
+      }
+
+
+      /* CONJUGATE */
+
+      if (item.type === 'conjugate') {
+
+        const input =
+          document.createElement(
+            'input'
+          );
+
+        input.className =
+          'answer';
+
+        input.placeholder =
+          'Escribe tu respuesta';
+
+        const check =
+          document.createElement(
+            'button'
+          );
+
+        check.className =
+          'main-btn';
+
+        check.textContent =
+          'Check';
+
+        const feedback =
+          document.createElement(
+            'div'
+          );
+
+        feedback.className =
+          'feedback';
+
+        check.onclick =
+          function() {
+
+            const user =
+              input.value
+                .trim()
+                .toLowerCase();
+
+            if (
+              user ===
+              item.answer.toLowerCase()
+            ) {
+
+              feedback.textContent =
+                '✓ ¡Perfecto!';
+
+              feedback.style.color =
+                'var(--green)';
+
+            } else {
+
+              feedback.textContent =
+                '✗ Casi. La respuesta es: ' +
+                item.answer;
+
+              feedback.style.color =
+                'var(--red)';
+
+            }
+
+          };
+
+
+        card.appendChild(input);
+        card.appendChild(check);
+        card.appendChild(feedback);
+
+      }
+
+
+      /* ORGANIZE */
+
+      if (item.type === 'order') {
+
+        const wordBox =
+          document.createElement(
+            'div'
+          );
+
+        wordBox.className =
+          'order-box';
+
+        wordBox.textContent =
+          item.words;
+
+        const input =
+          document.createElement(
+            'input'
+          );
+
+        input.className =
+          'answer';
+
+        input.placeholder =
+          'Escribe la pregunta completa';
+
+        const check =
+          document.createElement(
+            'button'
+          );
+
+        check.className =
+          'main-btn';
+
+        check.textContent =
+          'Check';
+
+        const feedback =
+          document.createElement(
+            'div'
+          );
+
+        feedback.className =
+          'feedback';
+
+        check.onclick =
+          function() {
+
+            const normalize =
+              text =>
+                text
+                  .toLowerCase()
+                  .replace(/[¿?]/g, '')
+                  .replace(/\s+/g, ' ')
+                  .trim();
+
+            if (
+              normalize(input.value) ===
+              normalize(item.answer)
+            ) {
+
+              feedback.textContent =
+                '✓ ¡Perfecto!';
+
+              feedback.style.color =
+                'var(--green)';
+
+            } else {
+
+              feedback.textContent =
+                '✗ Casi. Una respuesta correcta es: ' +
+                item.answer;
+
+              feedback.style.color =
+                'var(--red)';
+
+            }
+
+          };
+
+
+        card.appendChild(
+          wordBox
+        );
+
+        card.appendChild(
+          input
+        );
+
+        card.appendChild(
+          check
+        );
+
+        card.appendChild(
+          feedback
+        );
+
+      }
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+</script>
+
+</body>
+</html>
