@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>¡HABLEMOS! — ARVA by Kat</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap');
+
+:root {
+    --orange: #ff751f;
+    --pink: #ff2d55;
+    --blue: #4f46e5;
+    --beige: #feffd2;
+    --gray: #e7e5e4;
+    --mocha: #8b6f5a;
+    --dark: #332b27;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: linear-gradient(135deg, var(--beige), #f4eee9);
+    color: var(--dark);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.wrapper {
+    width: min(900px, 94vw);
+    padding: 35px 18px 45px;
+    text-align: center;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.brand {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--blue);
+    margin-bottom: 5px;
+}
+
+h1 {
+    margin: 0 0 20px;
+    font-size: clamp(32px, 6vw, 54px);
+    font-weight: 800;
+    color: var(--dark);
+}
+
+h1 span {
+    color: var(--orange);
+}
+
+/* =========================
+   COUNTER
+========================= */
+
+.counter {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--mocha);
+    margin-bottom: 15px;
+}
+
+/* =========================
+   FLASHCARD
+========================= */
+
+.card {
+    min-height: 340px;
+
+    background: var(--white);
+
+    border-radius: 28px;
+
+    padding: 45px 30px;
+
+    box-shadow:
+        0 14px 35px rgba(80, 55, 40, 0.14);
+
+    border: 6px solid var(--orange);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 42px rgba(80, 55, 40, 0.18);
+}
+
+.question {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    line-height: 1.3;
+
+    max-width: 760px;
+}
+
+/* =========================
+   TRANSLATION
+========================= */
+
+.translation {
+    margin-top: 28px;
+
+    padding: 16px 24px;
+
+    border-radius: 16px;
+
+    background: var(--pink);
+
+    color: white;
+
+    font-size: clamp(18px, 3vw, 25px);
+
+    font-weight: 700;
+
+    line-height: 1.35;
+
+    max-width: 760px;
+
+    display: none;
+
+    animation: appear 0.25s ease;
+}
+
+.translation.show {
+    display: block;
+}
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hint {
+    margin-top: 18px;
+
+    font-size: 12px;
+
+    color: #777;
+
+    font-weight: 500;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.controls {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    margin-top: 22px;
+}
+
+button {
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 14px 28px;
+
+    font-family: 'Montserrat', Arial, sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.back {
+    background: var(--gray);
+
+    color: var(--dark);
+}
+
+.next {
+    background: var(--blue);
+
+    color: white;
+}
+
+button:disabled {
+    opacity: 0.35;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.progress {
+    height: 8px;
+
+    background: var(--gray);
+
+    border-radius: 20px;
+
+    margin: 24px auto 0;
+
+    max-width: 620px;
+
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+
+    width: 0%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--orange),
+            var(--pink),
+            var(--blue)
+        );
+
+    transition: width 0.25s ease;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .wrapper {
+        padding-top: 25px;
+    }
+
+    .card {
+        min-height: 310px;
+
+        padding: 30px 20px;
+
+        border-radius: 22px;
+    }
+
+    .controls {
+        gap: 10px;
+    }
+
+    button {
+        padding: 13px 20px;
+    }
+
+    .question {
+        font-size: 23px;
+    }
+
+    .translation {
+        font-size: 18px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="wrapper">
+
+    <!-- TITLE -->
+
+    <div class="brand">
+        ARVA BY KAT
+    </div>
+
+    <h1>
+        ¡<span>HABLEMOS!</span>
+    </h1>
+
+
+    <!-- COUNTER -->
+
+    <div class="counter" id="counter">
+        1 / 22
+    </div>
+
+
+    <!-- FLASHCARD -->
+
+    <div
+        class="card"
+        id="card"
+        role="button"
+        tabindex="0"
+        aria-label="Mostrar traducción"
+    >
+
+        <div
+            class="question"
+            id="question"
+        ></div>
+
+
+        <div
+            class="translation"
+            id="translation"
+        ></div>
+
+
+        <div
+            class="hint"
+            id="hint"
+        >
+            Haz clic en la carta para ver la traducción
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="controls">
+
+        <button
+            class="back"
+            id="back"
+        >
+            ← Atrás
+        </button>
+
+
+        <button
+            class="next"
+            id="next"
+        >
+            Siguiente →
+        </button>
+
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div class="progress">
+
+        <div
+            class="bar"
+            id="bar"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   FLASHCARDS
+========================= */
+
+const cards = [
+
+    {
+        en: "How is your week going?",
+        es: "¿Cómo va tu semana?"
+    },
+
+    {
+        en: "How is your ear feeling?",
+        es: "¿Cómo está tu oído?"
+    },
+
+    {
+        en: "Do you have any plans for the weekend?",
+        es: "¿Tienes planes para el fin de semana?"
+    },
+
+    {
+        en: "Are you going to visit your sister and your mom?",
+        es: "¿Vas a visitar a tu hermana y tu mamá?"
+    },
+
+    {
+        en: "What does your sister do?",
+        es: "¿Qué hace tu hermana?"
+    },
+
+    {
+        en: "Do you have similar personalities?",
+        es: "¿Tienen personalidades similares?"
+    },
+
+    {
+        en: "Does your sister work on her own or for a company?",
+        es: "¿Tu hermana trabaja sola o en una empresa?"
+    },
+
+    {
+        en: "Do you want to travel to the U.S. next year?",
+        es: "¿Quieres viajar a USA el próximo año?"
+    },
+
+    {
+        en: "Where do you want to go?",
+        es: "¿A dónde quieres ir?"
+    },
+
+    {
+        en: "Do you want to study for a master’s degree or a PhD?",
+        es: "¿Quieres estudiar una maestría o un PhD?"
+    },
+
+    {
+        en: "What country do you want to study in?",
+        es: "¿En qué país quieres estudiar?"
+    },
+
+    {
+        en: "If you travel to another country, what happens to Tinto?",
+        es: "Si viajas a otro país, ¿qué pasa con Tinto?"
+    },
+
+    {
+        en: "Do you usually travel with Tinto?",
+        es: "¿Normalmente viajas con Tinto?"
+    },
+
+    {
+        en: "Do you like your job?",
+        es: "¿Te gusta tu trabajo?"
+    },
+
+    {
+        en: "Do you want to be a teacher for the rest of your life?",
+        es: "¿Quieres ser profesora toda la vida?"
+    },
+
+    {
+        en: "What other job do you like?",
+        es: "¿Qué otro trabajo te gusta?"
+    },
+
+    {
+        en: "Do you have a visa?",
+        es: "¿Tienes visa?"
+    },
+
+    {
+        en: "What don’t you like doing in general?",
+        es: "¿Qué no te gusta hacer en general?"
+    },
+
+    {
+        en: "Do you think you’re bossy?",
+        es: "¿Crees que eres mandona?"
+    },
+
+    {
+        en: "Do you think you’re jealous?",
+        es: "¿Crees que eres celosa?"
+    },
+
+    {
+        en: "What is the most important thing in your life?",
+        es: "¿Qué es lo más importante para ti en la vida?"
+    },
+
+    {
+        en: "Do you believe in God?",
+        es: "¿Crees en Dios?"
+    }
+
+];
+
+
+/* =========================
+   VARIABLES
+========================= */
+
+let index = 0;
+
+const card =
+    document.getElementById("card");
+
+const question =
+    document.getElementById("question");
+
+const translation =
+    document.getElementById("translation");
+
+const counter =
+    document.getElementById("counter");
+
+const hint =
+    document.getElementById("hint");
+
+const bar =
+    document.getElementById("bar");
+
+const back =
+    document.getElementById("back");
+
+const next =
+    document.getElementById("next");
+
+
+/* =========================
+   SHOW CARD
+========================= */
+
+function render() {
+
+    question.textContent =
+        cards[index].en;
+
+    translation.textContent =
+        cards[index].es;
+
+
+    translation.classList.remove("show");
+
+
+    hint.textContent =
+        "Haz clic en la carta para ver la traducción";
+
+
+    counter.textContent =
+        `${index + 1} / ${cards.length}`;
+
+
+    bar.style.width =
+        `${((index + 1) / cards.length) * 100}%`;
+
+
+    back.disabled =
+        index === 0;
+
+
+    next.disabled =
+        index === cards.length - 1;
+
+}
+
+
+/* =========================
+   SHOW / HIDE TRANSLATION
+========================= */
+
+function toggleTranslation() {
+
+    const isShown =
+        translation.classList.toggle("show");
+
+
+    if (isShown) {
+
+        hint.textContent =
+            "Haz clic para ocultar la traducción";
+
+    } else {
+
+        hint.textContent =
+            "Haz clic en la carta para ver la traducción";
+
+    }
+
+}
+
+
+/* =========================
+   CARD CLICK
+========================= */
+
+card.addEventListener(
+    "click",
+    toggleTranslation
+);
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+card.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" ||
+            event.key === " "
+        ) {
+
+            event.preventDefault();
+
+            toggleTranslation();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   BACK
+========================= */
+
+back.addEventListener(
+    "click",
+    function() {
+
+        if (index > 0) {
+
+            index--;
+
+            render();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   NEXT
+========================= */
+
+next.addEventListener(
+    "click",
+    function() {
+
+        if (index < cards.length - 1) {
+
+            index++;
+
+            render();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+render();
+
+</script>
+
+</body>
+</html>
