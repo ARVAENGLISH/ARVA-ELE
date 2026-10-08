@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🎵 Reto Musical — Mi Ex Tenía Razón | ARVA by Kat</title>
+<style>
+:root{--o:#ff7a1a;--o2:#ff9a4d;--p:#ff2e93;--b:#2f6bff;--bl:#e6eeff;--beige:#fbf1e4;--beige2:#f5e4cf;--d:#2d2d35;--g:#1fa463;--r:#e5384f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Montserrat,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;background:var(--beige);color:var(--d);font-size:18px;line-height:1.55}
+section{scroll-margin-top:76px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+h1,h2,h3{margin:0;line-height:1.1}
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);box-shadow:0 4px 18px rgba(45,45,53,.08)}
+nav .wrap{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:10px 20px}
+nav a{color:var(--d);text-decoration:none;font-weight:800;font-size:14px;letter-spacing:.04em;padding:9px 16px;border-radius:99px;transition:.25s}
+nav a:hover{background:var(--o);color:#fff;transform:translateY(-2px)}
+/* HERO */
+#home{background:linear-gradient(135deg,var(--o) 0%,var(--p) 100%);color:#fff;text-align:center;padding:70px 20px 90px;border-radius:0 0 60px 60px;position:relative;overflow:hidden}
+#home:before,#home:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.14)}
+#home:before{width:340px;height:340px;left:-110px;top:-120px}
+#home:after{width:260px;height:260px;right:-70px;bottom:-90px}
+#home>*{position:relative}
+.note{font-size:clamp(70px,14vw,120px);display:inline-block;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-12px) rotate(-6deg)}}
+.hero-k{font-size:clamp(22px,4vw,34px);font-weight:800;letter-spacing:.08em}
+.hero-t{font-size:clamp(38px,9vw,88px);font-weight:900;margin:6px 0 10px;letter-spacing:-.02em}
+.hero-by{font-size:22px;font-weight:700;opacity:.95}
+.sub{font-size:clamp(17px,2.4vw,22px);margin:18px auto 22px;max-width:640px;font-weight:500}
+.badge{display:inline-block;background:#fff;color:var(--b);font-weight:900;padding:10px 22px;border-radius:99px;font-size:15px;letter-spacing:.06em;box-shadow:0 8px 20px rgba(0,0,0,.15)}
+/* CARDS */
+.card{background:#fff;border-radius:30px;padding:30px;box-shadow:0 12px 34px rgba(45,45,53,.09)}
+.sec{padding:56px 0 8px}
+.sec h2{font-size:clamp(28px,5vw,42px);font-weight:900;margin-bottom:6px}
+.sec .lead{color:#6b6b75;margin:0 0 24px;font-weight:500}
+.obj{margin-top:-46px;position:relative;z-index:2;border:3px solid var(--p)}
+.obj h2{color:var(--p);font-size:30px}
+.obj blockquote{margin:12px 0;font-size:clamp(20px,3vw,26px);font-weight:700;border-left:6px solid var(--o);padding-left:16px}
+.obj strong{color:var(--b)}
+.obj p{margin:0;color:#55555f}
+/* VIDEO */
+.vid{position:relative;padding-top:56.25%;border-radius:24px;overflow:hidden;background:#000;box-shadow:0 14px 34px rgba(0,0,0,.25)}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.btn{display:inline-block;border:0;cursor:pointer;font-family:inherit;font-weight:900;font-size:19px;color:#fff;background:var(--o);padding:16px 34px;border-radius:99px;text-decoration:none;box-shadow:0 8px 0 #d85f00,0 14px 26px rgba(255,122,26,.35);transition:.18s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 11px 0 #d85f00,0 18px 30px rgba(255,122,26,.4)}
+.btn:active{transform:translateY(6px);box-shadow:0 2px 0 #d85f00}
+.btn.pink{background:var(--p);box-shadow:0 8px 0 #c71a74,0 14px 26px rgba(255,46,147,.3)}
+.btn.pink:hover{box-shadow:0 11px 0 #c71a74,0 18px 30px rgba(255,46,147,.4)}
+.btn.pink:active{box-shadow:0 2px 0 #c71a74}
+.btn.sm{font-size:15px;padding:10px 22px;box-shadow:0 5px 0 #d85f00}
+.btn.ghost{background:#fff;color:var(--d);box-shadow:0 0 0 3px var(--d)}
+.center{text-align:center;margin-top:24px}
+/* FLASHCARDS */
+.hint{font-weight:800;color:var(--p);margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.fc{perspective:1000px;height:310px;cursor:pointer;outline:none}
+.fc-in{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.fc.flip .fc-in{transform:rotateY(180deg)}
+.fc:hover .fc-in{filter:drop-shadow(0 12px 18px rgba(45,45,53,.16))}
+.fc:focus-visible{outline:4px solid var(--b);outline-offset:4px;border-radius:26px}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center}
+.front{background:#fff;border:3px solid var(--o);font-size:30px;font-weight:900;color:var(--d)}
+.front small{font-size:13px;font-weight:700;color:var(--o);margin-top:12px}
+.front.expr{border-color:var(--p)}
+.back{background:linear-gradient(160deg,var(--bl),#fff);border:3px solid var(--b);transform:rotateY(180deg)}
+.back .tr{font-weight:900;color:var(--p);font-size:17px;margin-bottom:8px}
+.back .row{display:flex;gap:8px;align-items:baseline;width:100%;justify-content:space-between;font-size:15px;padding:3px 6px;border-bottom:1px dashed #c9d6f7}
+.back .row i{font-style:normal;color:#7b86a8;font-size:12px;font-weight:700}
+.back .row b{color:var(--b);font-size:18px;font-weight:900}
+.back.expr{border-color:var(--p);background:#fff0f7}
+.back .big{font-size:26px;font-weight:900;color:var(--p)}
+.cap{font-size:14px;font-weight:700;color:#8a8a95;margin-top:14px}
+.group{font-weight:900;margin:22px 0 12px;font-size:16px;color:var(--b)}
+/* LYRICS */
+.lyr{font-size:19px;line-height:2.5}
+.lyr p{margin:0 0 22px}
+.lyr .dim{color:#8a8a95}
+.blank{display:inline-block;vertical-align:bottom;line-height:1.1;margin:0 3px;text-align:center}
+.blank input{width:118px;font:inherit;font-size:18px;font-weight:800;text-align:center;border:0;border-bottom:4px solid var(--o);background:var(--beige);border-radius:10px 10px 0 0;padding:4px 6px;color:var(--d);outline:none;transition:.2s}
+.blank input:focus{background:#fff2e4;border-color:var(--p)}
+.blank input.ok{background:#dff6ea;border-color:var(--g);color:var(--g)}
+.blank input.bad{background:#fde3e7;border-color:var(--r);color:var(--r)}
+.blank small{display:block;min-height:16px;font-size:13px;font-weight:800;color:var(--g)}
+.result{display:none;text-align:center;margin-top:22px;padding:24px;border-radius:24px;background:var(--bl)}
+.result.show{display:block;animation:pop .45s}
+@keyframes pop{from{transform:scale(.85);opacity:0}}
+.score{font-size:clamp(30px,6vw,46px);font-weight:900;color:var(--b)}
+.fb{font-size:20px;font-weight:800;margin-top:6px}
+/* PRACTICE */
+.ex{margin-bottom:18px;border-left:10px solid var(--o)}
+.ex .n{display:inline-block;background:var(--p);color:#fff;font-weight:900;border-radius:99px;padding:2px 14px;font-size:15px;margin-bottom:8px}
+.ex .pres{font-size:21px;font-weight:700}
+.ex .pre{color:var(--b);font-weight:900;margin:6px 0 10px;font-size:19px}
+.ex .line{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.ex input{flex:1 1 280px;font:inherit;font-weight:600;padding:13px 18px;border:3px solid var(--beige2);border-radius:18px;background:var(--beige);outline:none;transition:.2s}
+.ex input:focus{border-color:var(--o);background:#fff}
+.ex.ok{border-left-color:var(--g)}.ex.ok input{border-color:var(--g);background:#e6f8ef}
+.ex.bad{border-left-color:var(--r)}.ex.bad input{border-color:var(--r);background:#fdeaed}
+.ex .msg{margin-top:10px;font-weight:800;display:none}
+.ex .msg.show{display:block;animation:pop .35s}
+.ex .msg .m{color:var(--b)}
+/* CHALLENGE */
+.bank{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+.chip{background:var(--bl);color:var(--b);font-weight:900;padding:8px 18px;border-radius:99px;transition:.25s}
+.chip.used{background:var(--b);color:#fff;transform:scale(1.08)}
+textarea{width:100%;min-height:200px;font:inherit;font-size:19px;padding:20px;border:3px solid var(--beige2);border-radius:22px;background:var(--beige);resize:vertical;outline:none;transition:.2s}
+textarea:focus{border-color:var(--p);background:#fff}
+.counter{display:inline-block;font-weight:900;font-size:22px;background:var(--p);color:#fff;border-radius:99px;padding:8px 22px;margin-top:14px;transition:.3s}
+.counter.done{background:var(--g);transform:scale(1.06)}
+.win{display:none;margin-top:18px;padding:22px;border-radius:22px;background:#e6f8ef;border:3px solid var(--g);text-align:center}
+.win.show{display:block;animation:pop .45s}
+.win b{display:block;font-size:28px;color:var(--g)}
+/* FINAL */
+.fin{margin:64px 0 120px;text-align:center;background:linear-gradient(135deg,var(--p),var(--o));color:#fff;padding:50px 24px;border-radius:40px}
+.fin h2{font-size:clamp(32px,6vw,52px);font-weight:900}
+.fin p{font-size:clamp(19px,3vw,25px);font-weight:700;margin:18px 0 26px}
+.fin .btn{background:#fff;color:var(--p);box-shadow:0 8px 0 rgba(0,0,0,.2)}
+/* PROGRESS */
+#prog{position:fixed;right:16px;bottom:16px;z-index:60;background:#fff;border-radius:22px;padding:12px 18px;box-shadow:0 10px 30px rgba(45,45,53,.22);min-width:210px;border:3px solid var(--o)}
+#prog b{display:block;font-size:12px;letter-spacing:.07em;font-weight:900}
+#prog b span{color:var(--p)}
+.bar{height:10px;background:var(--beige2);border-radius:99px;margin-top:7px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--o),var(--p));border-radius:99px;transition:width .5s}
+@media(max-width:600px){body{font-size:16px}.card{padding:20px;border-radius:24px}.lyr{font-size:17px}.blank input{width:96px;font-size:16px}#prog{left:12px;right:12px;min-width:0;padding:8px 14px}.btn{font-size:16px;padding:14px 26px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+<a href="#home">HOME</a><a href="#vocab">VOCAB</a><a href="#song">SONG</a><a href="#practice">PRACTICE</a><a href="#challenge">CHALLENGE</a>
+</div></nav>
+
+<header id="home">
+<div class="note">🎵</div>
+<div class="hero-k">RETO MUSICAL</div>
+<h1 class="hero-t">MI EX TENÍA RAZÓN</h1>
+<div class="hero-by">ARVA by Kat</div>
+<p class="sub">Listen, discover and practice the PRETÉRITO PERFECTO SIMPLE.</p>
+<span class="badge">A2 — PASADO PISADO</span>
+</header>
+
+<main class="wrap">
+
+<div class="card obj">
+<h2>🎯 OBJETIVO</h2>
+<blockquote>Listen to the song and try your best to understand the missing verb in <strong>PASADO PISADO</strong>.</blockquote>
+<p>Escucha la canción, identifica los verbos en pasado y descubre cómo cambian las acciones del presente al pasado.</p>
+</div>
+
+<section id="video" class="sec">
+<h2>🎬 WATCH THE SONG</h2>
+<p class="lead"><strong>Karol G — Mi Ex Tenía Razón</strong></p>
+<div class="card">
+<div class="vid"><iframe src="https://www.youtube.com/embed/VBcs8DZxBGc" title="Karol G — Mi Ex Tenía Razón" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+<div class="center"><a class="btn pink" href="https://youtu.be/VBcs8DZxBGc?si=i2uOkHXEoglDkzHQ" target="_blank" rel="noopener noreferrer">▶️ OPEN VIDEO ON YOUTUBE</a></div>
+</div>
+</section>
+
+<section id="vocab" class="sec">
+<h2>🧠 VOCABULARIO</h2>
+<p class="lead">Pretérito perfecto simple — flashcards</p>
+<div class="hint">👆 Click a card to discover its past tense!</div>
+<div class="group">VERBS</div>
+<div class="grid" id="vGrid"></div>
+<div class="group">EXPRESSION</div>
+<div class="grid" id="eGrid"></div>
+</section>
+
+<section id="song" class="sec">
+<h2>🎧 LISTEN &amp; COMPLETE</h2>
+<p class="lead">Listen to the song and complete the missing verbs.</p>
+<div class="card">
+<div class="lyr" id="lyrics"></div>
+<div class="center">
+<button class="btn" id="checkL">✅ CHECK MY ANSWERS</button>
+<button class="btn ghost sm" id="retryL" style="display:none;margin-left:8px">🔄 TRY AGAIN</button>
+</div>
+<div class="result" id="resL"><div class="score" id="scoreL"></div><div class="fb" id="fbL"></div></div>
+</div>
+</section>
+
+<section id="practice" class="sec">
+<h2>📝 PRESENT → PASADO PISADO</h2>
+<p class="lead">Change the sentence from PRESENT to PRETÉRITO PERFECTO SIMPLE.</p>
+<div id="exs"></div>
+<div class="center"><button class="btn" id="checkAll">✅ CHECK ALL</button></div>
+</section>
+
+<section id="challenge" class="sec">
+<h2>🗣️ FINAL CHALLENGE</h2>
+<p class="lead">💔 ¿Qué pasó con tu ex?</p>
+<div class="card">
+<p style="margin:0;font-weight:700">Tell your story using AT LEAST 5 verbs in pretérito perfecto simple.</p>
+<div class="bank" id="bank"></div>
+<textarea id="story" placeholder="Mi ex y yo… Ayer llegué a casa y…"></textarea>
+<div class="counter" id="cnt">0 / 5 past verbs</div>
+<div class="win" id="win"><b>🔥 ¡RETO COMPLETADO!</b>You used 5+ verbs in Pasado Pisado!</div>
+</div>
+</section>
+
+<section class="fin">
+<h2>🎉 RETO COMPLETADO</h2>
+<p>You survived the ex.<br>You survived the song.<br>You survived EL PASADO PISADO. 💅🔥</p>
+<button class="btn" id="again">🔄 START AGAIN</button>
+</section>
+
+</main>
+
+<div id="prog"><b>YOUR PROGRESS: <span id="pct">0%</span></b><div class="bar"><i id="pbar"></i></div></div>
+
+<script>
+(function(){
+var PR=['yo','tú','él/ella','nosotros','ellos/ellas'];
+var V=[
+["OLVIDAR","to forget",["olvidé","olvidaste","olvidó","olvidamos","olvidaron"]],
+["LLEGAR","to arrive",["llegué","llegaste","llegó","llegamos","llegaron"]],
+["TRATAR","to treat / to try",["traté","trataste","trató","tratamos","trataron"]],
+["SER","to be",["fui","fuiste","fue","fuimos","fueron"]],
+["LLORAR","to cry",["lloré","lloraste","lloró","lloramos","lloraron"]],
+["HACER","to do / to make",["hice","hiciste","hizo","hicimos","hicieron"]],
+["CREER","to believe",["creí","creíste","creyó","creímos","creyeron"]],
+["TENER","to have",["tuve","tuviste","tuvo","tuvimos","tuvieron"]],
+["DECIR","to say / to tell",["dije","dijiste","dijo","dijimos","dijeron"]]
+];
+var LY=[
+'Contigo los días de playa me dan más calor\nPor ti me [[1]] del pasado y no guardo rencor\nBebé, en la cama me curaste to\' lo que me dolía\nMe pusiste a latir donde ya no me latía\nA ti sí te creo cuando me dices "mi amor"',
+'Mi ex tenía razón\nDijo que no iba a encontrar uno como él\nY me [[2]] uno mejor, que me [[3]] mejor\nMi ex tenía razón\nCuando dijo que nadie me lo hará como él\n¿[[4]] qué le digo que no? Si me lo [[5]] mejor',
+'Todo me gusta al lado de ti\nEn la fila no me tratan como en Fendi\nY soy un maquinón, pero me tenían empty\nMe sentía fea como Betty y ahora soy pretty\nEn la disco bajándome la botella \'e Moët\nDirecto [[6]] la cama [[7]] que me lo hagan como es\nDe verdad no sé por qué carajo [[8]] que [[9]]\nSi ahora me doy cuenta que fui yo la que coroné',
+'Contigo, mi amor\nMi cama se lleva mejor, ey\nYa no extraño la vida que tenía\nCuando pienso en lo que decía',
+'Mi ex tenía razón\nDijo que no iba a encontrar uno como él\nY me llegó uno mejor, que me trata mejor\nMi ex tenía razón\nCuando dijo que nadie me lo hará como él\n¿Pa\' qué le digo que no? Si me lo hace mejor',
+'Mi ex tenía razón\nCuando dijo que nadie me lo hará como él\n¿Pa\' qué le digo que no? Si me lo hace mejor\nEy, mmm'
+];
+var A=["olvidé","llegó","trata","pa'","hace","pa'","pa'","fue","lloré"];
+var X=[
+["Tengo un novio negro, alto, millonario y muy sexy.","El año pasado...","Tuve un novio negro, alto, millonario y muy sexy."],
+["Vas a visitar a tu amiga en el café.","Ayer...","Fuiste a visitar a tu amiga en el café."],
+["Llego a casa a las 7 p.m.","Ayer...","Llegué a casa a las 7 p.m."],
+["Olvido fácilmente a mi ex.","El año pasado...","Olvidé fácilmente a mi ex."],
+["Creo que mi ex es el mejor.","Antes...","Creí que mi ex era el mejor."],
+["Lloro cuando escucho esta canción.","Anoche...","Lloré cuando escuché esta canción."],
+["Mi novio me trata muy bien.","Mi ex...","Mi ex me trató muy bien."],
+["Mi novio hace todo por mí.","Mi ex...","Mi ex hizo todo por mí."],
+["Soy muy feliz con mi nuevo novio.","El año pasado...","Fui muy feliz con mi nuevo novio."],
+["Digo que mi ex tenía razón.","Ayer...","Dije que mi ex tenía razón."]
+];
+var BANK=["tuve","fui","llegué","olvidé","creí","lloré","hice","dije","traté"];
+var ALLF={};V.forEach(function(v){v[2].forEach(function(f){ALLF[f]=1;});});
+
+var $=function(id){return document.getElementById(id);};
+var flipped={},listenScore=-1,pChecked={},pOK={},cDone=0;
+
+function norm(s){return s.toLowerCase().replace(/[’´`‘]/g,"'").replace(/[.,;:¡!¿?"'()…\-–—]/g,'').replace(/\s+/g,' ').trim();}
+
+/* PROGRESS */
+function upd(){
+ var fl=Object.keys(flipped).length;
+ var p=fl/10*25+(listenScore>=0?25:0)+Object.keys(pChecked).length/10*25+Math.min(cDone,5)/5*25;
+ p=Math.round(p);$('pct').textContent=p+'%';$('pbar').style.width=p+'%';
+}
+
+/* FLASHCARDS */
+function mkCard(id,front,back,expr){
+ var c=document.createElement('div');c.className='fc';c.tabIndex=0;c.setAttribute('role','button');
+ c.innerHTML='<div class="fc-in"><div class="face front'+(expr?' expr':'')+'">'+front+'</div><div class="face back'+(expr?' expr':'')+'">'+back+'</div></div>';
+ function t(){c.classList.toggle('flip');flipped[id]=1;upd();}
+ c.addEventListener('click',t);
+ c.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t();}});
+ return c;
+}
+function buildVocab(){
+ $('vGrid').innerHTML='';$('eGrid').innerHTML='';
+ V.forEach(function(v,i){
+  var rows=v[2].map(function(f,k){return '<div class="row"><i>'+PR[k]+'</i><b>'+f.toUpperCase()+'</b></div>';}).join('');
+  $('vGrid').appendChild(mkCard('v'+i,v[0],'<div class="tr">'+v[1]+'</div>'+rows,false));
+ });
+ $('eGrid').appendChild(mkCard('e0',"PA'",'<div class="big">pa\' = para</div><div class="tr" style="margin-top:8px">for / in order to</div><div style="font-size:15px;color:#55555f">¿Pa\' qué le digo que no?</div>',true));
+}
+
+/* LISTENING */
+function buildLyrics(){
+ var h=LY.map(function(s,si){
+  var t=s.split('\n').map(function(l){return l.replace(/\[\[(\d)\]\]/g,function(m,n){return '<span class="blank"><input type="text" data-i="'+(n-1)+'" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Blank '+n+'"><small></small></span>';});}).join('<br>');
+  return '<p'+(si>=4?' class="dim"':'')+'>'+t+'</p>';
+ }).join('');
+ $('lyrics').innerHTML=h;
+ $('resL').classList.remove('show');$('retryL').style.display='none';$('checkL').style.display='';
+ listenScore=-1;
+}
+$('checkL').addEventListener('click',function(){
+ var ok=0;
+ document.querySelectorAll('#lyrics input').forEach(function(inp){
+  var i=+inp.dataset.i,good=norm(inp.value)===norm(A[i]);
+  inp.className=good?'ok':'bad';
+  inp.parentNode.querySelector('small').textContent=good?'':'✔ '+A[i];
+  if(good)ok++;
+ });
+ listenScore=ok;var pc=ok/9*100;
+ $('scoreL').textContent=ok+' / 9 correct! '+(pc>=90?'🔥':pc>=70?'💅':'👀');
+ $('fbL').textContent=pc>=90?'🔥 PERFECTO. ¡El pasado pisado no te puede ganar!':pc>=70?'💅 CASI PERFECTO. ¡Vamos, tú puedes!':'👀 TRY AGAIN. ¡Escucha otra vez y atrápalos!';
+ $('resL').classList.add('show');$('retryL').style.display='inline-block';
+ upd();
+});
+$('retryL').addEventListener('click',function(){buildLyrics();upd();$('song').scrollIntoView();});
+
+/* PRACTICE */
+function buildPractice(){
+ $('exs').innerHTML='';
+ X.forEach(function(x,i){
+  var d=document.createElement('div');d.className='card ex';
+  d.innerHTML='<span class="n">'+(i+1)+'</span><div class="pres">'+x[0]+'</div><div class="pre">'+x[1]+'</div><div class="line"><input type="text" placeholder="Escribe en pasado…" autocomplete="off" spellcheck="false"><button class="btn sm">CHECK</button></div><div class="msg"></div>';
+  d.querySelector('button').addEventListener('click',function(){chk(i,d);});
+  d.querySelector('input').addEventListener('keydown',function(e){if(e.key==='Enter')chk(i,d);});
+  $('exs').appendChild(d);
+ });
+}
+function chk(i,d){
+ var x=X[i],v=norm(d.querySelector('input').value),m=norm(x[2]),pre=norm(x[1]);
+ var good=v!==''&&(v===m||(v.indexOf(pre+' ')===0&&v.slice(pre.length+1)===m));
+ d.classList.remove('ok','bad');d.classList.add(good?'ok':'bad');
+ var msg=d.querySelector('.msg');
+ msg.innerHTML=(good?'✅ ¡Correcto!':'❌ Not quite.')+' <span class="m">Model answer: '+x[2]+'</span>';
+ msg.classList.remove('show');void msg.offsetWidth;msg.classList.add('show');
+ pChecked[i]=1;pOK[i]=good;upd();
+}
+$('checkAll').addEventListener('click',function(){
+ document.querySelectorAll('.ex').forEach(function(d,i){chk(i,d);});
+});
+
+/* FINAL CHALLENGE */
+function buildBank(){$('bank').innerHTML=BANK.map(function(w){return '<span class="chip" data-w="'+w+'">'+w+'</span>';}).join('');}
+function story(){
+ var w=($('story').value.toLowerCase().match(/[a-záéíóúüñ]+/g))||[],seen={},n=0;
+ w.forEach(function(x){if(ALLF[x]&&!seen[x]){seen[x]=1;n++;}});
+ document.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('used',!!seen[c.dataset.w]);});
+ $('cnt').textContent=n+' / 5 past verbs';$('cnt').classList.toggle('done',n>=5);
+ $('win').classList.toggle('show',n>=5);
+ cDone=n;upd();
+}
+$('story').addEventListener('input',story);
+
+/* RESET */
+function init(){
+ flipped={};listenScore=-1;pChecked={};pOK={};cDone=0;
+ buildVocab();buildLyrics();buildPractice();buildBank();
+ $('story').value='';$('cnt').textContent='0 / 5 past verbs';$('cnt').classList.remove('done');$('win').classList.remove('show');
+ upd();
+}
+$('again').addEventListener('click',function(){init();window.scrollTo({top:0,behavior:'smooth'});});
+init();
+})();
+</script>
+</body>
+</html>
